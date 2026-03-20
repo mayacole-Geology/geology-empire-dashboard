@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-20T01:12:22.761625",
+  "updated_at": "2026-03-20T01:29:26.382452",
   "agents": {
     "maya": {
       "status": "active",
@@ -47,7 +47,7 @@
     "impressions": 5,
     "score": 0,
     "posted_at": "2026-03-19T08:22:14.754356",
-    "scored_at": "2026-03-20T06:52:55.561213+00:00"
+    "scored_at": "2026-03-20T07:29:12.698971+00:00"
   },
   "recent_posts": [
     {
@@ -86,33 +86,83 @@
   "next_pending": [
     {
       "handle": "@GeologyLife",
-      "text": "This looks like stained glass from a cathedral window. It's actually fluorite that formed 280 million years ago in underground cavities.\n\nThe cubic cr",
+      "text": "This looks like stained glass from a cathedral window. It's actually fluorite that formed 280 million years ago in underground cavities.\n\nThe cubic crystals catch light like no other mineral. Purple z",
       "mineral": "Fluorite",
-      "scheduled_for": ""
+      "scheduled_for": "",
+      "image_path": "images/specimen_18121.webp",
+      "created_at": "2026-03-19T23:19:20.298225"
     },
     {
       "handle": "@GeologyLife",
-      "text": "Found this incredible pseudomorph today \u2014 malachite that completely replaced azurite crystal by crystal.\n\nThe green bands follow the exact shape of th",
+      "text": "Found this incredible pseudomorph today \u2014 malachite that completely replaced azurite crystal by crystal.\n\nThe green bands follow the exact shape of the original blue mineral. Perfect fossil record of ",
       "mineral": "Malachite after Azurite",
-      "scheduled_for": ""
+      "scheduled_for": "",
+      "image_path": "images/specimen_94431.webp",
+      "created_at": "2026-03-19T23:19:25.373521"
     },
     {
       "handle": "@GeologyLife",
-      "text": "Found this fluorite combo piece and it's got everything - purple cubes, white calcite, and metallic galena all in one specimen.\n\nThe way these three m",
+      "text": "Found this fluorite combo piece and it's got everything - purple cubes, white calcite, and metallic galena all in one specimen.\n\nThe way these three minerals crystallized together shows perfect timing",
       "mineral": "Fluorite with Calcite and Galena",
-      "scheduled_for": ""
+      "scheduled_for": "",
+      "image_path": "images/specimen_86979.webp",
+      "created_at": "2026-03-19T23:19:31.152429"
     },
     {
       "handle": "@GeologyLife",
-      "text": "Found this tourmaline specimen today but honestly can't tell you where it's from.\n\nThat's the thing about older collections - amazing crystals with ze",
+      "text": "Found this tourmaline specimen today but honestly can't tell you where it's from.\n\nThat's the thing about older collections - amazing crystals with zero location data. This one has that classic prisma",
       "mineral": "Tourmaline",
-      "scheduled_for": ""
+      "scheduled_for": "",
+      "image_path": "images/specimen_52922.webp",
+      "created_at": "2026-03-19T23:19:36.465873"
     },
     {
       "handle": "@GeologyLife",
-      "text": "This tourmaline took 50 million years to grow each perfect crystal face.\n\nFound this Skardu piece still locked in its quartz matrix \u2013 exactly how it f",
+      "text": "This tourmaline took 50 million years to grow each perfect crystal face.\n\nFound this Skardu piece still locked in its quartz matrix \u2013 exactly how it formed deep underground. The green zones show where",
       "mineral": "Mesmerizing Tourmaline with Quartz Matrix \u2013 A Skardu Masterpiece",
-      "scheduled_for": ""
+      "scheduled_for": "",
+      "image_path": "images/specimen_73299.webp",
+      "created_at": "2026-03-19T23:19:42.690096"
+    },
+    {
+      "handle": "@GeologyLife",
+      "text": "This looks like spilled wine on white marble. It's actually erythrite crystals - cobalt arsenate that forms these wild crimson sprays in oxidized ore zones. The color hits different under good light.\n",
+      "mineral": "Erythrite, Heterogenite",
+      "scheduled_for": "",
+      "image_path": "images/specimen_42423.webp",
+      "created_at": "2026-03-19T23:19:48.693501"
+    },
+    {
+      "handle": "@GeologyLife",
+      "text": "This looks like a piece of candy. It's actually rubellite tourmaline that formed deep underground over millions of years.\n\nThat pink glow comes from manganese trapped in the crystal structure as it gr",
+      "mineral": "Tourmaline (Var: Rubellite)",
+      "scheduled_for": "",
+      "image_path": "images/specimen_26276.webp",
+      "created_at": "2026-03-19T23:19:54.233790"
+    },
+    {
+      "handle": "@GeologyLife",
+      "text": "Nobody talks about how cuprite crystals can look like drops of liquid ruby frozen in time.\n\nFound this piece today - that mirror-bright surface isn't polished, it's natural. The crimson glow when you ",
+      "mineral": "Cuprite",
+      "scheduled_for": "",
+      "image_path": "images/specimen_6734.webp",
+      "created_at": "2026-03-19T23:19:59.657574"
+    },
+    {
+      "handle": "@GeologyLife",
+      "text": "Found this tourmaline with the most perfect triangular prism shape today.\n\nThe way these crystals catch light is unreal - that glassy luster makes even small specimens pop. Look for the three-sided cr",
+      "mineral": "Tourmaline",
+      "scheduled_for": "",
+      "image_path": "images/specimen_21413.webp",
+      "created_at": "2026-03-19T23:20:05.100775"
+    },
+    {
+      "handle": "@GeologyLife",
+      "text": "Found this fluorite and quartz combo in my collection today \u2014 no idea where it originally came from.\n\nThat's the thing about older specimens. The geology is perfect but the story is lost.\n\nMakes you w",
+      "mineral": "Fluorite, Quartz",
+      "scheduled_for": "",
+      "image_path": "images/specimen_49983.webp",
+      "created_at": "2026-03-19T23:20:10.494322"
     }
   ],
   "analytics": [
@@ -127,7 +177,7 @@
       "impressions": 5,
       "score": 0,
       "posted_at": "2026-03-19T08:22:14.754356",
-      "scored_at": "2026-03-20T06:52:55.561213+00:00"
+      "scored_at": "2026-03-20T07:29:12.698971+00:00"
     },
     {
       "tweet_id": "2034773355040289114",
@@ -140,7 +190,7 @@
       "impressions": 3,
       "score": 0,
       "posted_at": "2026-03-19T23:25:46.976188",
-      "scored_at": "2026-03-20T06:52:57.005719+00:00"
+      "scored_at": "2026-03-20T07:29:14.134359+00:00"
     },
     {
       "tweet_id": "2034870039451713607",
@@ -153,7 +203,7 @@
       "impressions": 0,
       "score": 0,
       "posted_at": "2026-03-20T05:49:58.289828",
-      "scored_at": "2026-03-20T06:52:58.444917+00:00"
+      "scored_at": "2026-03-20T07:29:15.562165+00:00"
     },
     {
       "tweet_id": "2034773478923280554",
@@ -166,7 +216,7 @@
       "impressions": 0,
       "score": 0,
       "posted_at": "2026-03-19T23:26:16.466485",
-      "scored_at": "2026-03-20T06:52:59.872068+00:00"
+      "scored_at": "2026-03-20T07:29:16.994409+00:00"
     }
   ],
   "db_stats": {
@@ -178,34 +228,652 @@
     "spent": 0.015,
     "limit": 20.0
   },
-  "errors_24h": 5,
+  "errors_24h": 6,
   "cron_schedule": [
     {
-      "job": "writer",
-      "plist": "com.earthwonders.writer.plist"
-    },
-    {
-      "job": "poster",
-      "plist": "com.earthwonders.poster.plist"
-    },
-    {
-      "job": "dashboard",
-      "plist": "com.earthwonders.dashboard.plist"
-    },
-    {
       "job": "analytics",
-      "plist": "com.earthwonders.analytics.plist"
-    },
-    {
-      "job": "health",
-      "plist": "com.earthwonders.health.plist"
+      "schedule": "23:00"
     },
     {
       "job": "dashboard-server",
-      "plist": "com.earthwonders.dashboard-server.plist"
+      "schedule": "always on"
+    },
+    {
+      "job": "dashboard",
+      "schedule": "every 1h"
+    },
+    {
+      "job": "health",
+      "schedule": "08:00"
+    },
+    {
+      "job": "poster",
+      "schedule": "09:00 & 18:00"
+    },
+    {
+      "job": "writer",
+      "schedule": "06:00 & 14:00"
+    }
+  ],
+  "activity_feed": [
+    {
+      "raw": "[2026-03-20 01:29:18] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "timestamp": "2026-03-20 01:29:18",
+      "agent": "analytics",
+      "message": "Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-20 01:29:16] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-20 01:29:16",
+      "agent": "analytics",
+      "message": "@Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 01:29:15] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-20 01:29:15",
+      "agent": "analytics",
+      "message": "@GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 01:29:14] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "timestamp": "2026-03-20 01:29:14",
+      "agent": "analytics",
+      "message": "@GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 01:29:12] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "timestamp": "2026-03-20 01:29:12",
+      "agent": "analytics",
+      "message": "@GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 01:29:12] [analytics] Found 4 posted tweets to collect analytics for.",
+      "timestamp": "2026-03-20 01:29:12",
+      "agent": "analytics",
+      "message": "Found 4 posted tweets to collect analytics for.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:53:00] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "timestamp": "2026-03-20 00:53:00",
+      "agent": "analytics",
+      "message": "Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-20 00:52:59] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-20 00:52:59",
+      "agent": "analytics",
+      "message": "@Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:52:58] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-20 00:52:58",
+      "agent": "analytics",
+      "message": "@GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:52:57] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "timestamp": "2026-03-20 00:52:57",
+      "agent": "analytics",
+      "message": "@GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:52:55] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "timestamp": "2026-03-20 00:52:55",
+      "agent": "analytics",
+      "message": "@GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:52:55] [analytics] Found 4 posted tweets to collect analytics for.",
+      "timestamp": "2026-03-20 00:52:55",
+      "agent": "analytics",
+      "message": "Found 4 posted tweets to collect analytics for.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:49:52] [health] Health report sent to Telegram.",
+      "timestamp": "2026-03-20 00:49:52",
+      "agent": "health",
+      "message": "Health report sent to Telegram.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:49:51] [health] Health check complete. Critical: False",
+      "timestamp": "2026-03-20 00:49:51",
+      "agent": "health",
+      "message": "Health check complete. Critical: False",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:43:51] [health] Health report sent to Telegram.",
+      "timestamp": "2026-03-20 00:43:51",
+      "agent": "health",
+      "message": "Health report sent to Telegram.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-20 00:43:50] [health] Health check complete. Critical: False",
+      "timestamp": "2026-03-20 00:43:50",
+      "agent": "health",
+      "message": "Health check complete. Critical: False",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:25] [health] Health report sent to Telegram.",
+      "timestamp": "2026-03-19 23:50:25",
+      "agent": "health",
+      "message": "Health report sent to Telegram.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:24] [health] Health check complete. Critical: False",
+      "timestamp": "2026-03-19 23:50:24",
+      "agent": "health",
+      "message": "Health check complete. Critical: False",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:18] [dashboard] Dashboard data updated. Queue: 16 pending, DB: 94,083 specimens",
+      "timestamp": "2026-03-19 23:50:18",
+      "agent": "dashboard",
+      "message": "Dashboard data updated. Queue: 16 pending, DB: 94,083 specimens",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:12] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "timestamp": "2026-03-19 23:50:12",
+      "agent": "analytics",
+      "message": "Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 23:50:11] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-19 23:50:11",
+      "agent": "analytics",
+      "message": "@Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:09] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "timestamp": "2026-03-19 23:50:09",
+      "agent": "analytics",
+      "message": "@GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:08] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "timestamp": "2026-03-19 23:50:08",
+      "agent": "analytics",
+      "message": "@GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:06] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "timestamp": "2026-03-19 23:50:06",
+      "agent": "analytics",
+      "message": "@GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:50:06] [analytics] Found 4 posted tweets to collect analytics for.",
+      "timestamp": "2026-03-19 23:50:06",
+      "agent": "analytics",
+      "message": "Found 4 posted tweets to collect analytics for.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607",
+      "timestamp": "2026-03-19 23:49:58",
+      "agent": "poster",
+      "message": "Posted successfully. Tweet ID: 2034870039451713607",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:57] [poster] Posting to @GeologyLife: Pyromorphite...",
+      "timestamp": "2026-03-19 23:49:57",
+      "agent": "poster",
+      "message": "Posting to @GeologyLife: Pyromorphite...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:56] [poster] Uploading image from file for Pyromorphite...",
+      "timestamp": "2026-03-19 23:49:56",
+      "agent": "poster",
+      "message": "Uploading image from file for Pyromorphite...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)",
+      "timestamp": "2026-03-19 23:49:48",
+      "agent": "writer",
+      "message": "Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:47] [writer]   [5/5] Rhodochrosite: Santa Eulalia's West Camp produced some of the world's fines...",
+      "timestamp": "2026-03-19 23:49:47",
+      "agent": "writer",
+      "message": "[5/5] Rhodochrosite: Santa Eulalia's West Camp produced some of the world's fines...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:38] [writer]   [4/5] Fluorite with Galena: Found this combo today: fluorite crystals sparkling on quart...",
+      "timestamp": "2026-03-19 23:49:38",
+      "agent": "writer",
+      "message": "[4/5] Fluorite with Galena: Found this combo today: fluorite crystals sparkling on quart...",
+      "is_error": false
+    },
+    {
+      "raw": "They'r..."
+    },
+    {
+      "raw": ""
+    },
+    {
+      "raw": "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.",
+      "timestamp": "2026-03-19 23:49:31",
+      "agent": "writer",
+      "message": "[3/5] Smithsonite: These look like wet glass beads fresh from the rain.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...",
+      "timestamp": "2026-03-19 23:49:25",
+      "agent": "writer",
+      "message": "[2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...",
+      "timestamp": "2026-03-19 23:49:18",
+      "agent": "writer",
+      "message": "[1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:10] [writer] Generating 5 posts for @GeologyLife...",
+      "timestamp": "2026-03-19 23:49:10",
+      "agent": "writer",
+      "message": "Generating 5 posts for @GeologyLife...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:10] [writer] Loaded content pool: 93,682 specimens",
+      "timestamp": "2026-03-19 23:49:10",
+      "agent": "writer",
+      "message": "Loaded content pool: 93,682 specimens",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved.",
+      "timestamp": "2026-03-19 23:49:04",
+      "agent": "researcher",
+      "message": "Research cycle complete. 24 new articles saved.",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:03] [researcher]     No articles found",
+      "timestamp": "2026-03-19 23:49:03",
+      "agent": "researcher",
+      "message": "No articles found",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:49:03] [researcher]   Error scraping GIA News: The read operation timed out",
+      "timestamp": "2026-03-19 23:49:03",
+      "agent": "researcher",
+      "message": "Error scraping GIA News: The read operation timed out",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 23:48:43] [researcher]   Scraping GIA News...",
+      "timestamp": "2026-03-19 23:48:43",
+      "agent": "researcher",
+      "message": "Scraping GIA News...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:42] [researcher]     No articles found",
+      "timestamp": "2026-03-19 23:48:42",
+      "agent": "researcher",
+      "message": "No articles found",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:42] [researcher]   Error scraping Mindat Latest: HTTP Error 403: Forbidden",
+      "timestamp": "2026-03-19 23:48:42",
+      "agent": "researcher",
+      "message": "Error scraping Mindat Latest: HTTP Error 403: Forbidden",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 23:48:41] [researcher]   Scraping Mindat Latest...",
+      "timestamp": "2026-03-19 23:48:41",
+      "agent": "researcher",
+      "message": "Scraping Mindat Latest...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:40] [researcher]     Found 15 articles, 15 new",
+      "timestamp": "2026-03-19 23:48:40",
+      "agent": "researcher",
+      "message": "Found 15 articles, 15 new",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:38] [researcher]   Scraping Geology.com News...",
+      "timestamp": "2026-03-19 23:48:38",
+      "agent": "researcher",
+      "message": "Scraping Geology.com News...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:37] [researcher]     No articles found",
+      "timestamp": "2026-03-19 23:48:37",
+      "agent": "researcher",
+      "message": "No articles found",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:37] [researcher]   Error scraping Mineralogical Record Blog: HTTP Error 404: Not Found",
+      "timestamp": "2026-03-19 23:48:37",
+      "agent": "researcher",
+      "message": "Error scraping Mineralogical Record Blog: HTTP Error 404: Not Found",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 23:48:36] [researcher]   Scraping Mineralogical Record Blog...",
+      "timestamp": "2026-03-19 23:48:36",
+      "agent": "researcher",
+      "message": "Scraping Mineralogical Record Blog...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:35] [researcher]     Found 9 articles, 9 new",
+      "timestamp": "2026-03-19 23:48:35",
+      "agent": "researcher",
+      "message": "Found 9 articles, 9 new",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:35] [researcher]   Scraping USGS Earthquake Hazards...",
+      "timestamp": "2026-03-19 23:48:35",
+      "agent": "researcher",
+      "message": "Scraping USGS Earthquake Hazards...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 23:48:35] [researcher] Starting geology news research cycle...",
+      "timestamp": "2026-03-19 23:48:35",
+      "agent": "researcher",
+      "message": "Starting geology news research cycle...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 18:37:31] [writer] Writer complete. 1 posts added to logs/posts_queue.json. Queue total: 15 (12 pending)",
+      "timestamp": "2026-03-19 18:37:31",
+      "agent": "writer",
+      "message": "Writer complete. 1 posts added to logs/posts_queue.json. Queue total: 15 (12 pending)",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 18:37:30] [writer]   [1/1] Amethyst Sprakling Crystals Geode in two Halfs Natural Mineral: Found this 5x4 inch amethyst geode from Nashik today \u2014 1735 ...",
+      "timestamp": "2026-03-19 18:37:30",
+      "agent": "writer",
+      "message": "[1/1] Amethyst Sprakling Crystals Geode in two Halfs Natural Mineral: Found this 5x4 inch amethyst geode from Nashik today \u2014 1735 ...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 18:37:24] [writer] Generating 1 posts for @GeologyLife...",
+      "timestamp": "2026-03-19 18:37:24",
+      "agent": "writer",
+      "message": "Generating 1 posts for @GeologyLife...",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 18:37:24] [writer] Loaded content pool: 93,682 specimens",
+      "timestamp": "2026-03-19 18:37:24",
+      "agent": "writer",
+      "message": "Loaded content pool: 93,682 specimens",
+      "is_error": false
+    },
+    {
+      "raw": "[2026-03-19 18:35:31] [backfill] Backfill complete. 849 descriptions added, 45 had no description, 106 errors.",
+      "timestamp": "2026-03-19 18:35:31",
+      "agent": "backfill",
+      "message": "Backfill complete. 849 descriptions added, 45 had no description, 106 errors.",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:35:31] [backfill]   Progress: 1000/1000 \u2014 849 filled, 45 empty, 106 errors",
+      "timestamp": "2026-03-19 18:35:31",
+      "agent": "backfill",
+      "message": "Progress: 1000/1000 \u2014 849 filled, 45 empty, 106 errors",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:35:28] [backfill]   Error on ID 109545: disk I/O error",
+      "timestamp": "2026-03-19 18:35:28",
+      "agent": "backfill",
+      "message": "Error on ID 109545: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:35:17] [backfill]   Error on ID 109633: disk I/O error",
+      "timestamp": "2026-03-19 18:35:17",
+      "agent": "backfill",
+      "message": "Error on ID 109633: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:35:04] [backfill]   Error on ID 109681: disk I/O error",
+      "timestamp": "2026-03-19 18:35:04",
+      "agent": "backfill",
+      "message": "Error on ID 109681: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:34:53] [backfill]   Error on ID 109719: disk I/O error",
+      "timestamp": "2026-03-19 18:34:53",
+      "agent": "backfill",
+      "message": "Error on ID 109719: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:34:43] [backfill]   Error on ID 109741: disk I/O error",
+      "timestamp": "2026-03-19 18:34:43",
+      "agent": "backfill",
+      "message": "Error on ID 109741: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:34:36] [backfill]   Error on ID 109755: disk I/O error",
+      "timestamp": "2026-03-19 18:34:36",
+      "agent": "backfill",
+      "message": "Error on ID 109755: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:34:35] [backfill]   Progress: 950/1000 \u2014 805 filled, 45 empty, 100 errors",
+      "timestamp": "2026-03-19 18:34:35",
+      "agent": "backfill",
+      "message": "Progress: 950/1000 \u2014 805 filled, 45 empty, 100 errors",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:47] [backfill]   Error on ID 109845: disk I/O error",
+      "timestamp": "2026-03-19 18:33:47",
+      "agent": "backfill",
+      "message": "Error on ID 109845: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:45] [backfill]   Progress: 900/1000 \u2014 756 filled, 45 empty, 99 errors",
+      "timestamp": "2026-03-19 18:33:45",
+      "agent": "backfill",
+      "message": "Progress: 900/1000 \u2014 756 filled, 45 empty, 99 errors",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:40] [backfill]   Error on ID 109859: disk I/O error",
+      "timestamp": "2026-03-19 18:33:40",
+      "agent": "backfill",
+      "message": "Error on ID 109859: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:30] [backfill]   Error on ID 109885: disk I/O error",
+      "timestamp": "2026-03-19 18:33:30",
+      "agent": "backfill",
+      "message": "Error on ID 109885: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:20] [backfill]   Error on ID 109916: disk I/O error",
+      "timestamp": "2026-03-19 18:33:20",
+      "agent": "backfill",
+      "message": "Error on ID 109916: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:33:07] [backfill]   Error on ID 109970: disk I/O error",
+      "timestamp": "2026-03-19 18:33:07",
+      "agent": "backfill",
+      "message": "Error on ID 109970: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:56] [backfill]   Error on ID 109988: disk I/O error",
+      "timestamp": "2026-03-19 18:32:56",
+      "agent": "backfill",
+      "message": "Error on ID 109988: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:49] [backfill]   Error on ID 110018: disk I/O error",
+      "timestamp": "2026-03-19 18:32:49",
+      "agent": "backfill",
+      "message": "Error on ID 110018: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:47] [backfill]   Progress: 850/1000 \u2014 712 filled, 45 empty, 93 errors",
+      "timestamp": "2026-03-19 18:32:47",
+      "agent": "backfill",
+      "message": "Progress: 850/1000 \u2014 712 filled, 45 empty, 93 errors",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:40] [backfill]   Error on ID 110039: disk I/O error",
+      "timestamp": "2026-03-19 18:32:40",
+      "agent": "backfill",
+      "message": "Error on ID 110039: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:29] [backfill]   Error on ID 110106: disk I/O error",
+      "timestamp": "2026-03-19 18:32:29",
+      "agent": "backfill",
+      "message": "Error on ID 110106: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:19] [backfill]   Error on ID 110156: disk I/O error",
+      "timestamp": "2026-03-19 18:32:19",
+      "agent": "backfill",
+      "message": "Error on ID 110156: disk I/O error",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:13] [backfill]   Error on ID 110218: 'NoneType' object is not subscriptable",
+      "timestamp": "2026-03-19 18:32:13",
+      "agent": "backfill",
+      "message": "Error on ID 110218: 'NoneType' object is not subscriptable",
+      "is_error": true
+    },
+    {
+      "raw": "[2026-03-19 18:32:09] [backfill]   Error on ID 110229: disk I/O error",
+      "timestamp": "2026-03-19 18:32:09",
+      "agent": "backfill",
+      "message": "Error on ID 110229: disk I/O error",
+      "is_error": true
     }
   ],
   "activity_log": [
+    "[2026-03-19 18:29:18] [backfill]   Error on ID 110850: 'NoneType' object is not subscriptable",
+    "[2026-03-19 18:29:21] [backfill]   Error on ID 110846: disk I/O error",
+    "[2026-03-19 18:29:30] [backfill]   Error on ID 110815: disk I/O error",
+    "[2026-03-19 18:29:40] [backfill]   Error on ID 110781: disk I/O error",
+    "[2026-03-19 18:29:52] [backfill]   Error on ID 110738: disk I/O error",
+    "[2026-03-19 18:29:56] [backfill]   Progress: 700/1000 \u2014 579 filled, 45 empty, 76 errors",
+    "[2026-03-19 18:29:58] [backfill]   Error on ID 110700: disk I/O error",
+    "[2026-03-19 18:30:08] [backfill]   Error on ID 110643: disk I/O error",
+    "[2026-03-19 18:30:21] [backfill]   Error on ID 110601: disk I/O error",
+    "[2026-03-19 18:30:33] [backfill]   Error on ID 110558: disk I/O error",
+    "[2026-03-19 18:30:44] [backfill]   Error on ID 110542: disk I/O error",
+    "[2026-03-19 18:30:51] [backfill]   Progress: 750/1000 \u2014 624 filled, 45 empty, 81 errors",
+    "[2026-03-19 18:30:52] [backfill]   Error on ID 110505: disk I/O error",
+    "[2026-03-19 18:31:01] [backfill]   Error on ID 110470: disk I/O error",
+    "[2026-03-19 18:31:10] [backfill]   Error on ID 110457: disk I/O error",
+    "[2026-03-19 18:31:23] [backfill]   Error on ID 110407: disk I/O error",
+    "[2026-03-19 18:31:35] [backfill]   Error on ID 110348: disk I/O error",
+    "[2026-03-19 18:31:46] [backfill]   Progress: 800/1000 \u2014 669 filled, 45 empty, 86 errors",
+    "[2026-03-19 18:31:58] [backfill]   Error on ID 110276: disk I/O error",
+    "[2026-03-19 18:32:05] [backfill]   Error on ID 110245: 'NoneType' object is not subscriptable",
+    "[2026-03-19 18:32:09] [backfill]   Error on ID 110229: disk I/O error",
+    "[2026-03-19 18:32:13] [backfill]   Error on ID 110218: 'NoneType' object is not subscriptable",
+    "[2026-03-19 18:32:19] [backfill]   Error on ID 110156: disk I/O error",
+    "[2026-03-19 18:32:29] [backfill]   Error on ID 110106: disk I/O error",
+    "[2026-03-19 18:32:40] [backfill]   Error on ID 110039: disk I/O error",
+    "[2026-03-19 18:32:47] [backfill]   Progress: 850/1000 \u2014 712 filled, 45 empty, 93 errors",
+    "[2026-03-19 18:32:49] [backfill]   Error on ID 110018: disk I/O error",
+    "[2026-03-19 18:32:56] [backfill]   Error on ID 109988: disk I/O error",
+    "[2026-03-19 18:33:07] [backfill]   Error on ID 109970: disk I/O error",
+    "[2026-03-19 18:33:20] [backfill]   Error on ID 109916: disk I/O error",
+    "[2026-03-19 18:33:30] [backfill]   Error on ID 109885: disk I/O error",
+    "[2026-03-19 18:33:40] [backfill]   Error on ID 109859: disk I/O error",
+    "[2026-03-19 18:33:45] [backfill]   Progress: 900/1000 \u2014 756 filled, 45 empty, 99 errors",
+    "[2026-03-19 18:33:47] [backfill]   Error on ID 109845: disk I/O error",
+    "[2026-03-19 18:34:35] [backfill]   Progress: 950/1000 \u2014 805 filled, 45 empty, 100 errors",
+    "[2026-03-19 18:34:36] [backfill]   Error on ID 109755: disk I/O error",
+    "[2026-03-19 18:34:43] [backfill]   Error on ID 109741: disk I/O error",
+    "[2026-03-19 18:34:53] [backfill]   Error on ID 109719: disk I/O error",
+    "[2026-03-19 18:35:04] [backfill]   Error on ID 109681: disk I/O error",
+    "[2026-03-19 18:35:17] [backfill]   Error on ID 109633: disk I/O error",
+    "[2026-03-19 18:35:28] [backfill]   Error on ID 109545: disk I/O error",
+    "[2026-03-19 18:35:31] [backfill]   Progress: 1000/1000 \u2014 849 filled, 45 empty, 106 errors",
+    "[2026-03-19 18:35:31] [backfill] Backfill complete. 849 descriptions added, 45 had no description, 106 errors.",
+    "[2026-03-19 18:37:24] [writer] Loaded content pool: 93,682 specimens",
+    "[2026-03-19 18:37:24] [writer] Generating 1 posts for @GeologyLife...",
+    "[2026-03-19 18:37:30] [writer]   [1/1] Amethyst Sprakling Crystals Geode in two Halfs Natural Mineral: Found this 5x4 inch amethyst geode from Nashik today \u2014 1735 ...",
+    "[2026-03-19 18:37:31] [writer] Writer complete. 1 posts added to logs/posts_queue.json. Queue total: 15 (12 pending)",
+    "[2026-03-19 23:48:35] [researcher] Starting geology news research cycle...",
+    "[2026-03-19 23:48:35] [researcher]   Scraping USGS Earthquake Hazards...",
+    "[2026-03-19 23:48:35] [researcher]     Found 9 articles, 9 new",
+    "[2026-03-19 23:48:36] [researcher]   Scraping Mineralogical Record Blog...",
+    "[2026-03-19 23:48:37] [researcher]   Error scraping Mineralogical Record Blog: HTTP Error 404: Not Found",
+    "[2026-03-19 23:48:37] [researcher]     No articles found",
+    "[2026-03-19 23:48:38] [researcher]   Scraping Geology.com News...",
+    "[2026-03-19 23:48:40] [researcher]     Found 15 articles, 15 new",
+    "[2026-03-19 23:48:41] [researcher]   Scraping Mindat Latest...",
+    "[2026-03-19 23:48:42] [researcher]   Error scraping Mindat Latest: HTTP Error 403: Forbidden",
+    "[2026-03-19 23:48:42] [researcher]     No articles found",
+    "[2026-03-19 23:48:43] [researcher]   Scraping GIA News...",
+    "[2026-03-19 23:49:03] [researcher]   Error scraping GIA News: The read operation timed out",
+    "[2026-03-19 23:49:03] [researcher]     No articles found",
+    "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved.",
+    "[2026-03-19 23:49:10] [writer] Loaded content pool: 93,682 specimens",
+    "[2026-03-19 23:49:10] [writer] Generating 5 posts for @GeologyLife...",
     "[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...",
     "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...",
     "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.",
@@ -235,6 +903,139 @@
     "[2026-03-20 00:52:57] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
     "[2026-03-20 00:52:58] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
     "[2026-03-20 00:52:59] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
-    "[2026-03-20 00:53:00] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4"
+    "[2026-03-20 00:53:00] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4",
+    "[2026-03-20 01:29:12] [analytics] Found 4 posted tweets to collect analytics for.",
+    "[2026-03-20 01:29:12] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+    "[2026-03-20 01:29:14] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+    "[2026-03-20 01:29:15] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-20 01:29:16] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-20 01:29:18] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4"
+  ],
+  "followers": {
+    "raw": {
+      "updated": "2026-03-20T06:00:05.448535+00:00",
+      "platforms": {
+        "facebook_geologywonders": "error",
+        "x_geologywonders": "error",
+        "bluesky_geologywonders": 400,
+        "mastodon_geologywonders": 10,
+        "tumblr_geologywonders": 73,
+        "x_earthvives": "error",
+        "bluesky_earthvives": 7,
+        "tumblr_earthvives": 7
+      },
+      "total": 497
+    },
+    "platform_stats": {
+      "updated": "2026-03-20T06:17:00.742884+00:00",
+      "brands": {
+        "GeologyWonders": {
+          "bluesky": {
+            "followers": 400,
+            "total_posts": 63,
+            "posts_7d": 0,
+            "last_post": "2026-03-10"
+          },
+          "mastodon": {
+            "followers": 10,
+            "total_posts": 60,
+            "posts_7d": 0,
+            "last_post": "2026-03-06"
+          },
+          "tumblr": {
+            "followers": 73,
+            "total_posts": 83,
+            "posts_7d": 11,
+            "last_post": "2026-03-19"
+          }
+        },
+        "EarthVives": {
+          "bluesky": {
+            "followers": 7,
+            "total_posts": 71,
+            "posts_7d": 17,
+            "last_post": "2026-03-20"
+          },
+          "tumblr": {
+            "followers": 7,
+            "total_posts": 73,
+            "posts_7d": 17,
+            "last_post": "2026-03-20"
+          }
+        }
+      }
+    }
+  },
+  "news": [
+    {
+      "title": "United States Maps",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/world/the-united-states-of-america-satellite-image.shtml",
+      "scraped_at": "2026-03-20T05:48:40.657480"
+    },
+    {
+      "title": "South America Maps",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/world/south-america-satellite-image.shtml",
+      "scraped_at": "2026-03-20T05:48:40.657468"
+    },
+    {
+      "title": "North America Maps",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/world/north-america-satellite-image.shtml",
+      "scraped_at": "2026-03-20T05:48:40.657456"
+    },
+    {
+      "title": "Central America Maps",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/world/central-america-satellite-image.shtml",
+      "scraped_at": "2026-03-20T05:48:40.657443"
+    },
+    {
+      "title": "Teacher Resources",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/teacher/",
+      "scraped_at": "2026-03-20T05:48:40.657430"
+    },
+    {
+      "title": "Geology.com Store",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/store/",
+      "scraped_at": "2026-03-20T05:48:40.657396"
+    },
+    {
+      "title": "Geology Dictionary",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/geology-dictionary.shtml",
+      "scraped_at": "2026-03-20T05:48:40.657383"
+    },
+    {
+      "title": "Satellite Images",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/satellite/",
+      "scraped_at": "2026-03-20T05:48:40.657347"
+    },
+    {
+      "title": "Plate Tectonics",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/plate-tectonics/",
+      "scraped_at": "2026-03-20T05:48:40.657333"
+    },
+    {
+      "title": "Geologic Hazards",
+      "source": "Geology.com News",
+      "summary": "",
+      "url": "https://geology.com/geologic-hazards/",
+      "scraped_at": "2026-03-20T05:48:40.657299"
+    }
   ]
 }
