@@ -1,0 +1,83 @@
+{
+  "updated_at": "2026-03-20T05:50:18.427327+00:00",
+  "agents": {
+    "maya": {
+      "status": "running",
+      "last_activity": "no activity"
+    },
+    "researcher": {
+      "status": "idle",
+      "last_activity": "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved."
+    },
+    "writer": {
+      "status": "active",
+      "last_activity": "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)"
+    },
+    "poster": {
+      "status": "active",
+      "last_activity": "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607"
+    }
+  },
+  "followers": {
+    "GeologyWonders1": {
+      "platform": "x",
+      "count": 7000000
+    },
+    "Geologic_news": {
+      "platform": "x",
+      "count": 0
+    },
+    "GeologyLife": {
+      "platform": "x",
+      "count": 0
+    }
+  },
+  "posts_today": {
+    "@GeologyLife": 2,
+    "@Geologic_news": 1
+  },
+  "queue_stats": {
+    "pending": 16,
+    "posted": 4,
+    "total": 20
+  },
+  "top_post": {
+    "text": "Nothing beats that moment when you crack open a rock and fin",
+    "likes": 0,
+    "retweets": 0,
+    "replies": 0,
+    "impressions": 5,
+    "score": 0,
+    "handle": "@GeologyLife",
+    "mineral": "Fluorite, Barite"
+  },
+  "db_stats": {
+    "specimens": 94083,
+    "wiki_pages": 229
+  },
+  "budget": {
+    "spent": 0.015,
+    "limit": 20.0
+  },
+  "activity_log": [
+    "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved.",
+    "[2026-03-19 23:49:10] [writer] Loaded content pool: 93,682 specimens",
+    "[2026-03-19 23:49:10] [writer] Generating 5 posts for @GeologyLife...",
+    "[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...",
+    "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...",
+    "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.",
+    "They'r...",
+    "[2026-03-19 23:49:38] [writer]   [4/5] Fluorite with Galena: Found this combo today: fluorite crystals sparkling on quart...",
+    "[2026-03-19 23:49:47] [writer]   [5/5] Rhodochrosite: Santa Eulalia's West Camp produced some of the world's fines...",
+    "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)",
+    "[2026-03-19 23:49:56] [poster] Uploading image from file for Pyromorphite...",
+    "[2026-03-19 23:49:57] [poster] Posting to @GeologyLife: Pyromorphite...",
+    "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607",
+    "[2026-03-19 23:50:06] [analytics] Found 4 posted tweets to collect analytics for.",
+    "[2026-03-19 23:50:06] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+    "[2026-03-19 23:50:08] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+    "[2026-03-19 23:50:09] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-19 23:50:11] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-19 23:50:12] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4"
+  ]
+}

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geology Empire Mission Control</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== CRYSTAL BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 20%, rgba(26,82,118,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 80% 10%, rgba(231,76,140,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 400px at 50% 60%, rgba(39,174,96,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 350px 350px at 90% 80%, rgba(243,156,18,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 300px at 20% 85%, rgba(41,128,185,0.1) 0%, transparent 60%);
+  animation: crystalShift 20s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle 2px at 10% 15%, rgba(243,156,18,0.4) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 25% 45%, rgba(41,128,185,0.35) 0%, transparent 100%),
+    radial-gradient(circle 2px at 55% 25%, rgba(231,76,140,0.3) 0%, transparent 100%),
+    radial-gradient(circle 1px at 70% 70%, rgba(39,174,96,0.35) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 85% 35%, rgba(243,156,18,0.3) 0%, transparent 100%),
+    radial-gradient(circle 1px at 40% 80%, rgba(41,128,185,0.3) 0%, transparent 100%),
+    radial-gradient(circle 2px at 95% 55%, rgba(231,76,140,0.25) 0%, transparent 100%),
+    radial-gradient(circle 1px at 5% 60%, rgba(39,174,96,0.3) 0%, transparent 100%);
+  animation: starTwinkle 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes crystalShift {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.05) rotate(0.5deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(-0.5deg); opacity: 1; }
+}
+@keyframes starTwinkle {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* ===== LAYOUT CONTAINER ===== */
+.dashboard {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  padding: 2rem 1rem 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(41,128,185,0.2);
+}
+.header h1 {
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #2980b9 0%, #e74c8c 40%, #f39c12 70%, #27ae60 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientTitle 6s ease infinite;
+  text-shadow: none;
+  filter: drop-shadow(0 0 30px rgba(41,128,185,0.3));
+}
+@keyframes gradientTitle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.header .subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.header .datetime {
+  margin-top: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 1rem;
+  color: #f39c12;
+  text-shadow: 0 0 10px rgba(243,156,18,0.4);
+}
+
+/* ===== CARD BASE ===== */
+.card {
+  background: linear-gradient(145deg, rgba(15,15,25,0.95), rgba(10,10,18,0.98));
+  border: 1px solid rgba(41,128,185,0.15);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  border-color: rgba(41,128,185,0.35);
+  box-shadow: 0 0 20px rgba(41,128,185,0.08);
+}
+.card-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ===== AGENT CARDS ===== */
+.agents-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.agent-card {
+  background: linear-gradient(145deg, rgba(15,15,25,0.95), rgba(10,10,18,0.98));
+  border: 1px solid rgba(41,128,185,0.15);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--agent-color, #2980b9), transparent);
+  opacity: 0.6;
+}
+.agent-card:hover {
+  border-color: rgba(41,128,185,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+.agent-card.director {
+  --agent-color: #f39c12;
+  border-color: rgba(243,156,18,0.2);
+}
+.agent-card.director:hover { border-color: rgba(243,156,18,0.4); }
+.agent-card.researcher { --agent-color: #27ae60; }
+.agent-card.writer { --agent-color: #e74c8c; }
+.agent-card.poster { --agent-color: #2980b9; }
+
+.agent-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.agent-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+.agent-role {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.agent-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #27ae60;
+  margin-bottom: 0.6rem;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27ae60;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(39,174,96,0.6);
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(39,174,96,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 12px rgba(39,174,96,0.8), 0 0 20px rgba(39,174,96,0.3); transform: scale(1.2); }
+}
+.agent-activity {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+
+/* ===== DATA PANELS GRID ===== */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.data-grid .card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== FOLLOWERS TABLE ===== */
+.followers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.followers-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.followers-table td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.followers-table tr:hover td {
+  background: rgba(41,128,185,0.05);
+}
+.followers-table .platform {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.78rem;
+}
+.followers-table .account {
+  color: #2980b9;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+}
+.followers-table .count {
+  color: #fff;
+  font-weight: 600;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.followers-table .change {
+  color: #27ae60;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+}
+
+/* ===== POSTS TODAY ===== */
+.posts-list { list-style: none; }
+.posts-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.posts-list .post-account {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.82rem;
+}
+.posts-list .post-count {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 2rem;
+  text-align: right;
+}
+
+/* ===== TOP POST ===== */
+.top-post-card {
+  position: relative;
+}
+.top-post-account {
+  font-size: 0.8rem;
+  color: #2980b9;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  margin-bottom: 0.75rem;
+}
+.top-post-text {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 1rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid rgba(243,156,18,0.4);
+}
+.top-post-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.top-post-stats .stat {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.82rem;
+}
+.top-post-stats .stat-value {
+  font-weight: 700;
+  color: #f39c12;
+}
+.top-post-stats .stat-label {
+  color: rgba(255,255,255,0.35);
+  margin-left: 0.3rem;
+  font-size: 0.72rem;
+}
+
+/* ===== DB STATS ===== */
+.db-stats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+.db-stat-item .db-number {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2980b9, #27ae60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.db-stat-item .db-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+/* ===== BUDGET GAUGE ===== */
+.budget-display {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+.budget-text {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.budget-bar-track {
+  width: 100%;
+  height: 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.budget-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.8s ease, background 0.8s ease;
+  position: relative;
+}
+.budget-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: barShine 2s ease-in-out infinite;
+}
+@keyframes barShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.budget-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.5rem;
+}
+
+/* ===== ACTIVITY LOG ===== */
+.activity-log {
+  height: 320px;
+  overflow-y: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(41,128,185,0.3) transparent;
+}
+.activity-log::-webkit-scrollbar { width: 4px; }
+.activity-log::-webkit-scrollbar-track { background: transparent; }
+.activity-log::-webkit-scrollbar-thumb { background: rgba(41,128,185,0.3); border-radius: 2px; }
+.log-entry {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.log-entry:hover { background: rgba(41,128,185,0.06); }
+.log-time { color: rgba(255,255,255,0.3); }
+.log-tag-POSTER { color: #2980b9; }
+.log-tag-WRITER { color: #e74c8c; }
+.log-tag-MAYA { color: #f39c12; }
+.log-tag-RESEARCH { color: #27ae60; }
+.log-msg { color: rgba(255,255,255,0.6); }
+
+/* ===== LAST UPDATED ===== */
+.last-updated {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 1rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  border-top: 1px solid rgba(41,128,185,0.1);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .agents-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .dashboard { padding: 1rem 0.5rem; }
+  .agents-row {
+    grid-template-columns: 1fr;
+  }
+  .header h1 { letter-spacing: 0.08em; }
+  .top-post-stats { gap: 0.75rem; }
+  .db-stats { flex-direction: column; gap: 0.75rem; }
+  .followers-table { font-size: 0.78rem; }
+  .followers-table th, .followers-table td { padding: 0.4rem 0.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Geology Empire Mission Control</h1>
+    <div class="subtitle">EarthWonders Content Operations</div>
+    <div class="datetime" id="datetime"></div>
+  </header>
+
+  <!-- LAST UPDATED -->
+  <div class="last-updated" id="lastUpdated">Last updated: loading...</div>
+
+  <!-- AGENT OFFICE ROW -->
+  <section class="agents-row" id="agentsRow">
+    <div class="agent-card director" data-agent="maya">
+      <div class="agent-icon">&#x1F48E;</div>
+      <div class="agent-name">Maya Cole</div>
+      <div class="agent-role">Director</div>
+      <div class="agent-status"><span class="status-dot"></span> Online</div>
+      <div class="agent-activity" id="activity-maya">Latest: Telegram active</div>
+    </div>
+    <div class="agent-card researcher" data-agent="researcher">
+      <div class="agent-icon">&#x1F50D;</div>
+      <div class="agent-name">Geo Researcher</div>
+      <div class="agent-role">Research &amp; Discovery</div>
+      <div class="agent-status"><span class="status-dot"></span> Online</div>
+      <div class="agent-activity" id="activity-researcher">Last story: [loading...]</div>
+    </div>
+    <div class="agent-card writer" data-agent="writer">
+      <div class="agent-icon">&#x270D;&#xFE0F;</div>
+      <div class="agent-name">Geo Writer</div>
+      <div class="agent-role">Content Creation</div>
+      <div class="agent-status"><span class="status-dot"></span> Online</div>
+      <div class="agent-activity" id="activity-writer">Last post written: [loading...]</div>
+    </div>
+    <div class="agent-card poster" data-agent="poster">
+      <div class="agent-icon">&#x1F4E1;</div>
+      <div class="agent-name">Geo Poster</div>
+      <div class="agent-role">Distribution</div>
+      <div class="agent-status"><span class="status-dot"></span> Online</div>
+      <div class="agent-activity" id="activity-poster">Last posted: [loading...]</div>
+    </div>
+  </section>
+
+  <!-- DATA PANELS -->
+  <section class="data-grid">
+
+    <!-- Follower Counts -->
+    <div class="card">
+      <div class="card-title">Follower Counts</div>
+      <table class="followers-table">
+        <thead>
+          <tr><th>Platform</th><th>Account</th><th>Followers</th><th>Change</th></tr>
+        </thead>
+        <tbody id="followersBody">
+          <tr><td class="platform">X</td><td class="account">@GeologyWonders1</td><td class="count">7M</td><td class="change">+growing</td></tr>
+          <tr><td class="platform">X</td><td class="account">@Geologic_news</td><td class="count">growing</td><td class="change">+growing</td></tr>
+          <tr><td class="platform">X</td><td class="account">@GeologyLife</td><td class="count">growing</td><td class="change">+growing</td></tr>
+          <tr><td class="platform">Bluesky</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
+          <tr><td class="platform">Tumblr</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
+          <tr><td class="platform">Mastodon</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Posts Today -->
+    <div class="card">
+      <div class="card-title">Posts Today</div>
+      <ul class="posts-list" id="postsList">
+        <li><span class="post-account" style="color:#2980b9">@GeologyWonders1</span><span class="post-count" style="color:#2980b9">--</span></li>
+        <li><span class="post-account" style="color:#27ae60">@Geologic_news</span><span class="post-count" style="color:#27ae60">--</span></li>
+        <li><span class="post-account" style="color:#e74c8c">@GeologyLife</span><span class="post-count" style="color:#e74c8c">--</span></li>
+      </ul>
+    </div>
+
+    <!-- Top Post This Week -->
+    <div class="card top-post-card">
+      <div class="card-title">Top Post This Week</div>
+      <div class="top-post-account" id="topPostAccount">@GeologyWonders1</div>
+      <div class="top-post-text" id="topPostText">Loading top post...</div>
+      <div class="top-post-stats" id="topPostStats">
+        <div class="stat"><span class="stat-value">--</span><span class="stat-label">likes</span></div>
+        <div class="stat"><span class="stat-value">--</span><span class="stat-label">reposts</span></div>
+        <div class="stat"><span class="stat-value">--</span><span class="stat-label">views</span></div>
+      </div>
+    </div>
+
+    <!-- EarthWonders DB -->
+    <div class="card">
+      <div class="card-title">EarthWonders Database</div>
+      <div class="db-stats">
+        <div class="db-stat-item">
+          <div class="db-number" id="dbSpecimens">93,682</div>
+          <div class="db-label">Specimens</div>
+        </div>
+        <div class="db-stat-item">
+          <div class="db-number" id="dbWiki">229</div>
+          <div class="db-label">Wiki Pages</div>
+        </div>
+        <div class="db-stat-item">
+          <div class="db-number" id="dbCountries">196</div>
+          <div class="db-label">Countries</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Fuel Gauge -->
+    <div class="card">
+      <div class="card-title">Budget Fuel Gauge</div>
+      <div class="budget-display">
+        <div class="budget-text" id="budgetText">$0.00 / $20.00</div>
+        <div class="budget-bar-track">
+          <div class="budget-bar-fill" id="budgetBar" style="width:0%; background:#27ae60;"></div>
+        </div>
+        <div class="budget-label">Daily spend limit</div>
+      </div>
+    </div>
+
+    <!-- Agent Activity Log -->
+    <div class="card full-width">
+      <div class="card-title">Agent Activity Log</div>
+      <div class="activity-log" id="activityLog">
+        <div class="log-entry"><span class="log-msg">Loading activity log...</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    Powered by OpenFang + Claude &bull; EarthWonders.com
+  </footer>
+
+</div>
+
+<script>
+// ===== LIVE CLOCK =====
+function updateClock() {
+  const now = new Date();
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  const date = now.toLocaleDateString('en-US', opts);
+  const time = now.toLocaleTimeString('en-US', { hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  document.getElementById('datetime').textContent = date + '  \u2022  ' + time;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ===== FORMAT HELPERS =====
+function fmtNum(n) {
+  if (typeof n === 'string') return n;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return n.toLocaleString();
+}
+
+// ===== RENDER LOG ENTRY =====
+function renderLogEntry(text) {
+  const m = text.match(/^(\d{2}:\d{2})\s+\[(\w+)\]\s+(.*)$/);
+  if (!m) return '<div class="log-entry"><span class="log-msg">' + text + '</span></div>';
+  const tag = m[2];
+  return '<div class="log-entry">' +
+    '<span class="log-time">' + m[1] + '</span> ' +
+    '<span class="log-tag-' + tag + '">[' + tag + ']</span> ' +
+    '<span class="log-msg">' + m[3] + '</span></div>';
+}
+
+// ===== BUDGET COLOR =====
+function budgetColor(pct) {
+  if (pct < 0.5) return '#27ae60';
+  if (pct < 0.75) return '#f39c12';
+  return '#e74c3c';
+}
+
+// ===== APPLY DATA =====
+function applyData(data) {
+  // Last updated
+  if (data.lastUpdated) {
+    const d = new Date(data.lastUpdated);
+    document.getElementById('lastUpdated').textContent = 'Last updated: ' + d.toLocaleString();
+  }
+
+  // Agents
+  if (data.agents) {
+    for (const [key, agent] of Object.entries(data.agents)) {
+      const el = document.getElementById('activity-' + key);
+      if (el) el.textContent = agent.lastActivity || '';
+    }
+  }
+
+  // Followers
+  if (data.followers) {
+    const tbody = document.getElementById('followersBody');
+    tbody.innerHTML = data.followers.map(function(f) {
+      return '<tr>' +
+        '<td class="platform">' + f.platform + '</td>' +
+        '<td class="account">' + f.account + '</td>' +
+        '<td class="count">' + f.followers + '</td>' +
+        '<td class="change">' + f.change + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  // Posts Today
+  if (data.postsToday) {
+    const ul = document.getElementById('postsList');
+    ul.innerHTML = data.postsToday.map(function(p) {
+      return '<li>' +
+        '<span class="post-account" style="color:' + p.color + '">' + p.account + '</span>' +
+        '<span class="post-count" style="color:' + p.color + '">' + p.count + '</span>' +
+        '</li>';
+    }).join('');
+  }
+
+  // Top Post
+  if (data.topPost) {
+    document.getElementById('topPostAccount').textContent = data.topPost.account;
+    document.getElementById('topPostText').textContent = data.topPost.text;
+    document.getElementById('topPostStats').innerHTML =
+      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.likes) + '</span><span class="stat-label">likes</span></div>' +
+      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.reposts) + '</span><span class="stat-label">reposts</span></div>' +
+      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.views) + '</span><span class="stat-label">views</span></div>';
+  }
+
+  // Database
+  if (data.database) {
+    document.getElementById('dbSpecimens').textContent = data.database.specimens.toLocaleString();
+    document.getElementById('dbWiki').textContent = data.database.wikiPages.toLocaleString();
+    document.getElementById('dbCountries').textContent = data.database.countries.toLocaleString();
+  }
+
+  // Budget
+  if (data.budget) {
+    const pct = data.budget.spent / data.budget.limit;
+    const color = budgetColor(pct);
+    document.getElementById('budgetText').innerHTML =
+      '<span style="color:' + color + '">$' + data.budget.spent.toFixed(2) + '</span>' +
+      ' <span style="color:rgba(255,255,255,0.3)">/</span> $' + data.budget.limit.toFixed(2);
+    const bar = document.getElementById('budgetBar');
+    bar.style.width = Math.min(pct * 100, 100) + '%';
+    bar.style.background = color;
+  }
+
+  // Activity Log
+  if (data.activityLog) {
+    const logEl = document.getElementById('activityLog');
+    logEl.innerHTML = data.activityLog.map(renderLogEntry).join('');
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+}
+
+// ===== FETCH DATA =====
+fetch('data.json')
+  .then(function(r) {
+    if (!r.ok) throw new Error('Failed to load');
+    return r.json();
+  })
+  .then(applyData)
+  .catch(function(err) {
+    console.warn('data.json load failed, using placeholders:', err);
+    document.getElementById('lastUpdated').textContent = 'Last updated: using placeholder data';
+  });
+</script>
+
+</body>
+</html>
