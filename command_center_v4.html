@@ -255,81 +255,127 @@ body::after {
 }
 
 /* =============================== */
-/* DESK GRID                       */
+/* DESK GRID — 3D PERSPECTIVE      */
 /* =============================== */
 #desk-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr 1fr;
   grid-template-rows: auto auto;
-  gap: 14px;
+  gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
   padding-bottom: 20px;
+  perspective: 1200px;
 }
 
 /* =============================== */
-/* AGENT DESK CARD                 */
+/* AGENT WORKSPACE ISLAND           */
 /* =============================== */
 .desk-card {
-  background: var(--glass-heavy);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  padding: 16px;
+  --desk-accent: var(--azurite);
+  background: rgba(8, 10, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 18px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  transform: rotateX(2deg) rotateY(0deg);
+  transform-style: preserve-3d;
 }
+/* Glowing platform base */
 .desk-card::before {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 10%; right: 10%;
+  height: 16px;
+  background: var(--desk-accent);
+  border-radius: 50%;
+  filter: blur(12px);
+  opacity: 0.15;
+  transition: opacity 0.4s;
+}
+/* Top accent line */
+.desk-card::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--desk-accent, var(--azurite)), transparent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent 5%, var(--desk-accent) 50%, transparent 95%);
+  opacity: 0.6;
+  border-radius: 16px 16px 0 0;
 }
+
+/* Floating status badge above card */
+.status-badge {
+  position: absolute;
+  top: -10px; right: 16px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  z-index: 2;
+  border: 1px solid;
+}
+.status-badge.active { background: rgba(45,122,79,0.2); color: var(--mineral-green); border-color: rgba(45,122,79,0.3); }
+.status-badge.idle { background: rgba(201,162,39,0.15); color: var(--gold); border-color: rgba(201,162,39,0.2); }
+.status-badge.error { background: rgba(212,84,122,0.2); color: var(--rhodochrosite); border-color: rgba(212,84,122,0.3); }
+
+/* Hover: lift and glow */
 .desk-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--desk-accent, rgba(26,107,138,0.15));
-  border-color: var(--desk-accent, var(--azurite));
+  transform: rotateX(0deg) rotateY(0deg) translateY(-6px) scale(1.02);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.5),
+    0 0 30px color-mix(in srgb, var(--desk-accent) 20%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  border-color: color-mix(in srgb, var(--desk-accent) 40%, transparent);
 }
+.desk-card:hover::before { opacity: 0.35; }
 
-/* Typing animation on active desks */
-.desk-card[data-status="active"] .desk-monitor::after {
-  animation: monitorFlicker 3s ease-in-out infinite;
-}
-@keyframes monitorFlicker {
-  0%, 100% { opacity: 0.03; }
-  50% { opacity: 0.08; }
-}
+/* Active state: pulsing glow ring */
 .desk-card[data-status="active"] {
-  border-color: rgba(45, 122, 79, 0.25);
-  box-shadow: 0 0 15px rgba(45, 122, 79, 0.08);
+  border-color: rgba(45, 122, 79, 0.3);
+  animation: activeIsland 3s ease-in-out infinite;
 }
-.desk-card[data-status="error"] {
-  border-color: rgba(212, 84, 122, 0.3);
-  box-shadow: 0 0 15px rgba(212, 84, 122, 0.1);
-  animation: errorGlow 2s ease-in-out infinite;
+@keyframes activeIsland {
+  0%, 100% { box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 20px rgba(45,122,79,0.08); }
+  50% { box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 35px rgba(45,122,79,0.15); }
 }
-@keyframes errorGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(212, 84, 122, 0.1); }
-  50% { box-shadow: 0 0 25px rgba(212, 84, 122, 0.2); }
+.desk-card[data-status="active"]::before { opacity: 0.3; animation: basePulse 2s ease-in-out infinite; }
+@keyframes basePulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
 }
 
-/* Typing cursor for active writer */
+/* Error state: red danger glow */
+.desk-card[data-status="error"] {
+  border-color: rgba(212, 84, 122, 0.35);
+  animation: errorIsland 1.5s ease-in-out infinite;
+}
+@keyframes errorIsland {
+  0%, 100% { box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 20px rgba(212,84,122,0.1); }
+  50% { box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 40px rgba(212,84,122,0.25); }
+}
+
+/* Typing cursor */
 .typing-cursor::after {
   content: '█';
   animation: cursorBlink 1s step-end infinite;
   color: var(--azurite);
+  font-size: 11px;
 }
 @keyframes cursorBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
-/* Broadcast signal animation for poster */
+/* Broadcast signal rings */
 .broadcast-signal {
   display: inline-block;
   width: 8px; height: 8px;
@@ -340,77 +386,208 @@ body::after {
 }
 @keyframes broadcastPulse {
   0% { box-shadow: 0 0 0 0 rgba(201,162,39,0.6); }
-  100% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
-}
-.desk-card.maya-desk {
-  --desk-accent: var(--gold);
-  border-color: rgba(201, 162, 39, 0.25);
-  box-shadow: 0 0 20px rgba(201, 162, 39, 0.06), inset 0 0 30px rgba(201, 162, 39, 0.02);
-}
-.desk-card.researcher-desk { --desk-accent: #00d4ff; }
-.desk-card.writer-desk { --desk-accent: var(--rhodochrosite); }
-.desk-card.poster-desk { --desk-accent: var(--gold); }
-.desk-card.ceo-desk {
-  --desk-accent: var(--gold);
-  border-color: rgba(201, 162, 39, 0.1);
+  100% { box-shadow: 0 0 0 14px rgba(201,162,39,0); }
 }
 
-/* Desk header */
+/* Per-agent accent colors */
+.desk-card.researcher-desk { --desk-accent: #00d4ff; transform: rotateX(2deg) rotateY(1deg); }
+.desk-card.maya-desk {
+  --desk-accent: var(--gold);
+  border-color: rgba(201,162,39,0.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 25px rgba(201,162,39,0.06);
+}
+.desk-card.writer-desk { --desk-accent: var(--rhodochrosite); transform: rotateX(2deg) rotateY(-1deg); }
+.desk-card.poster-desk { --desk-accent: #e8c840; transform: rotateX(1deg) rotateY(1deg); }
+.desk-card.ceo-desk { --desk-accent: var(--gold); border-color: rgba(201,162,39,0.12); transform: rotateX(1deg) rotateY(-1deg); }
+
+/* =============================== */
+/* DESK HEADER WITH CHARACTER       */
+/* =============================== */
 .desk-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px;
+  position: relative;
 }
+
+/* CSS pixel art character containers */
+.char-avatar {
+  width: 40px; height: 40px;
+  position: relative;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+/* Goku silhouette — spiky hair, cyan */
+.char-goku {
+  background: radial-gradient(circle at 50% 60%, #00d4ff 0%, #006688 70%, transparent 71%);
+  border-radius: 4px;
+  position: relative;
+}
+.char-goku::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: 6px;
+  width: 28px; height: 14px;
+  background:
+    conic-gradient(from 200deg at 50% 100%, #00d4ff 0deg, transparent 40deg, #00d4ff 60deg, transparent 100deg, #00d4ff 120deg, transparent 160deg, #00d4ff 180deg, transparent 220deg);
+  clip-path: polygon(10% 100%, 0% 30%, 20% 0%, 35% 50%, 50% 0%, 65% 50%, 80% 0%, 100% 30%, 90% 100%);
+}
+.desk-card[data-status="active"] .char-goku {
+  animation: gokuLean 1.5s ease-in-out infinite;
+}
+@keyframes gokuLean {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg) translateX(2px); }
+}
+
+/* Maya — geology hat, gold */
+.char-maya {
+  background: radial-gradient(circle at 50% 55%, var(--gold) 0%, #8a6b15 65%, transparent 66%);
+  border-radius: 4px;
+}
+.char-maya::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 2px; right: 2px;
+  height: 12px;
+  background: linear-gradient(180deg, var(--gold) 40%, #8a6b15 100%);
+  border-radius: 12px 12px 2px 2px;
+  box-shadow: -4px 6px 0 0 #8a6b15, 4px 6px 0 0 #8a6b15;
+}
+.desk-card[data-status="active"] .char-maya::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 50%;
+  width: 3px; height: 3px;
+  background: var(--gold);
+  border-radius: 1px;
+  animation: mayaType 0.3s step-end infinite;
+}
+@keyframes mayaType {
+  0%, 100% { transform: translateX(-6px); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Mary — pen icon, pink */
+.char-mary {
+  background: radial-gradient(circle at 50% 55%, var(--rhodochrosite) 0%, #8a2a4a 65%, transparent 66%);
+  border-radius: 4px;
+}
+.char-mary::before {
+  content: '';
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 4px; height: 20px;
+  background: linear-gradient(180deg, #eee 0%, var(--rhodochrosite) 70%, #444 100%);
+  border-radius: 1px;
+  transform-origin: bottom center;
+}
+.desk-card[data-status="active"] .char-mary::before {
+  animation: penWrite 0.8s ease-in-out infinite;
+}
+@keyframes penWrite {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+/* Pikachu — yellow ears, electric */
+.char-pikachu {
+  background: radial-gradient(circle at 50% 55%, #f5d623 0%, #c4a210 65%, transparent 66%);
+  border-radius: 4px;
+}
+.char-pikachu::before, .char-pikachu::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  width: 8px; height: 14px;
+  background: #f5d623;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.char-pikachu::before { left: 4px; transform: rotate(-15deg); }
+.char-pikachu::after { right: 4px; transform: rotate(15deg); }
+.desk-card[data-status="active"] .char-pikachu {
+  animation: pikaShock 0.4s ease-in-out infinite;
+}
+@keyframes pikaShock {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 6px #f5d623); }
+}
+
+/* Andres — suit, gold */
+.char-andres {
+  background: radial-gradient(circle at 50% 55%, #445 0%, #223 65%, transparent 66%);
+  border-radius: 4px;
+}
+.char-andres::before {
+  content: '';
+  position: absolute;
+  top: 16px; left: 8px; right: 8px;
+  height: 18px;
+  background: linear-gradient(180deg, #334 0%, #223 100%);
+  clip-path: polygon(20% 0%, 50% 15%, 80% 0%, 100% 100%, 0% 100%);
+}
+.char-andres::after {
+  content: '';
+  position: absolute;
+  top: 20px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 8px;
+  background: var(--gold);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Legacy emoji support (hidden by default, shown if char-avatar fails) */
 .desk-emoji {
-  font-size: 36px;
-  line-height: 1;
-  transition: transform 0.3s ease;
+  font-size: 0;
+  width: 0; height: 0;
+  overflow: hidden;
+  position: absolute;
 }
-.desk-card:hover .desk-emoji { transform: scale(1.1); }
-.desk-card[data-status="active"] .desk-emoji.bounce-active {
-  animation: emojiBounce 0.8s ease-in-out infinite;
-}
-@keyframes emojiBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+
 .desk-name {
   font-size: 15px; font-weight: 600; color: var(--text-bright);
   letter-spacing: -0.3px;
 }
 .desk-role {
-  font-size: 10px; color: var(--text-dim); text-transform: uppercase;
-  letter-spacing: 1.5px; margin-top: 1px;
+  font-size: 9px; color: var(--text-dim); text-transform: uppercase;
+  letter-spacing: 1.8px; margin-top: 2px;
+  font-family: var(--font-mono);
 }
 .desk-status-dot {
   width: 10px; height: 10px; border-radius: 50%;
   margin-left: auto; flex-shrink: 0;
+  box-shadow: 0 0 6px;
 }
-.desk-status-dot.active { background: var(--mineral-green); animation: statusPulse 2s infinite; }
-.desk-status-dot.idle { background: var(--gold); animation: statusPulseYellow 2s infinite; }
+.desk-status-dot.active { background: var(--mineral-green); box-shadow: 0 0 8px var(--mineral-green); animation: statusPulse 2s infinite; }
+.desk-status-dot.idle { background: var(--gold); box-shadow: 0 0 6px rgba(201,162,39,0.4); animation: statusPulseYellow 2s infinite; }
 .desk-status-dot.error { background: var(--rhodochrosite); animation: statusPulseRed 2s infinite; }
 
-/* Desk monitor */
+/* Desk monitor — glowing screen */
 .desk-monitor {
-  background: rgba(5, 5, 15, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: linear-gradient(145deg, rgba(4,6,14,0.9) 0%, rgba(8,12,25,0.95) 100%);
+  border: 1px solid color-mix(in srgb, var(--desk-accent) 15%, transparent);
   border-radius: 8px;
   padding: 10px 12px;
   font-family: var(--font-mono);
   font-size: 11px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text);
-  min-height: 70px;
+  min-height: 75px;
   margin-bottom: 10px;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4), 0 0 12px color-mix(in srgb, var(--desk-accent) 6%, transparent);
 }
+/* Left accent bar */
 .desk-monitor::before {
   content: '';
-  position: absolute; top: 0; left: 0;
-  width: 3px; height: 100%;
+  position: absolute; top: 4px; bottom: 4px; left: 0;
+  width: 2px;
   background: var(--desk-accent, var(--azurite));
-  opacity: 0.4;
+  opacity: 0.6;
   border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 6px var(--desk-accent);
 }
 
 /* Monitor scanline effect */
@@ -938,7 +1115,9 @@ body::after {
 
       <!-- GOKU - Researcher -->
       <div class="desk-card researcher-desk" data-agent="researcher" data-status="idle" onclick="openPanel('researcher')">
+        <div class="status-badge idle" id="researcher-badge">IDLE</div>
         <div class="desk-header">
+          <div class="char-avatar char-goku"></div>
           <span class="desk-emoji bounce-active">&#9889;</span>
           <div>
             <div class="desk-name">Goku</div>
@@ -954,8 +1133,10 @@ body::after {
 
       <!-- MAYA - Director (Large) -->
       <div class="desk-card maya-desk" data-agent="maya" data-status="idle" onclick="openPanel('maya')">
+        <div class="status-badge idle" id="maya-badge">IDLE</div>
         <div class="notif-badge" id="maya-notif">!</div>
         <div class="desk-header">
+          <div class="char-avatar char-maya"></div>
           <span class="desk-emoji">&#x1FAA8;</span>
           <div>
             <div class="desk-name">Maya Cole</div>
@@ -973,7 +1154,9 @@ body::after {
 
       <!-- MARY - Writer -->
       <div class="desk-card writer-desk" data-agent="writer" data-status="idle" onclick="openPanel('writer')" style="position:relative;">
+        <div class="status-badge idle" id="writer-badge">IDLE</div>
         <div class="desk-header">
+          <div class="char-avatar char-mary"></div>
           <span class="desk-emoji">&#x1F4DD;</span>
           <div>
             <div class="desk-name">Mary Goodman</div>
@@ -994,8 +1177,10 @@ body::after {
 
       <!-- PIKACHU - Publisher -->
       <div class="desk-card poster-desk" data-agent="poster" data-status="idle" onclick="openPanel('poster')" style="position:relative; grid-column: 1;">
+        <div class="status-badge idle" id="poster-badge">IDLE</div>
         <div class="lightning-flash" id="poster-lightning"></div>
         <div class="desk-header">
+          <div class="char-avatar char-pikachu"></div>
           <span class="desk-emoji">&#9889;</span>
           <div>
             <div class="desk-name">Pikachu</div>
@@ -1016,7 +1201,9 @@ body::after {
 
       <!-- ANDRES - CEO -->
       <div class="desk-card ceo-desk" data-agent="ceo" data-status="idle" onclick="openPanel('ceo')" style="grid-column: 3;">
+        <div class="status-badge idle" id="ceo-badge">REVIEWING</div>
         <div class="desk-header">
+          <div class="char-avatar char-andres"></div>
           <span class="desk-emoji">&#x1F468;&#x200D;&#x1F4BC;</span>
           <div>
             <div class="desk-name">Andres</div>
@@ -1332,6 +1519,13 @@ body::after {
     const status = d.agents && d.agents[agent] ? d.agents[agent].status : 'idle';
     const desk = document.querySelector(`.${deskSelector}`);
     if (desk) desk.setAttribute('data-status', status);
+    // Update floating badge
+    const badgeMap = { researcher: 'researcher-badge', maya: 'maya-badge', writer: 'writer-badge', poster: 'poster-badge', ceo: 'ceo-badge' };
+    const badge = document.getElementById(badgeMap[agent]);
+    if (badge) {
+      badge.className = 'status-badge ' + status;
+      badge.textContent = status === 'active' ? 'WORKING' : status === 'error' ? 'ERROR' : agent === 'ceo' ? 'REVIEWING' : 'IDLE';
+    }
     return status;
   }
 
