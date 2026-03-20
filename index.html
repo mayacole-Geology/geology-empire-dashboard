@@ -3,724 +3,2646 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geology Empire Mission Control</title>
+<title>Geology Empire — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
+/* ══════════════════════════════════════════
+   GEOLOGY EMPIRE COMMAND CENTER v4.0
+   Crystal Cave Aesthetic — Pure HTML/CSS/JS
+   ══════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #080810;
+  --surface: #0c0c1a;
+  --surface2: #111122;
+  --surface3: #181830;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --text: #d8d8ee;
+  --text-dim: #6a6a8a;
+  --azurite: #2980b9;
+  --azurite-deep: #1a5276;
+  --rhodochrosite: #e74c8c;
+  --mineral-green: #27ae60;
+  --gold: #f39c12;
+  --crystal-blue: #3498db;
+  --amethyst: #9b59b6;
+  --ruby: #e74c3c;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --glass-bg: rgba(12, 12, 28, 0.65);
+  --glass-border: rgba(255,255,255,0.08);
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0a0a0f;
-  color: #e0e0e0;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(26,82,118,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 80% 70%, rgba(231,76,140,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(39,174,96,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 300px 300px at 90% 15%, rgba(243,156,18,0.05) 0%, transparent 70%),
+    var(--bg);
 }
 
-/* ===== CRYSTAL BACKGROUND ===== */
-body::before {
-  content: '';
+/* ═══ FLOATING MINERAL PARTICLES ═══ */
+.particle-field {
   position: fixed;
   inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 600px 600px at 15% 20%, rgba(26,82,118,0.15) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 500px at 80% 10%, rgba(231,76,140,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 400px 400px at 50% 60%, rgba(39,174,96,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 350px 350px at 90% 80%, rgba(243,156,18,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 300px 300px at 20% 85%, rgba(41,128,185,0.1) 0%, transparent 60%);
-  animation: crystalShift 20s ease-in-out infinite alternate;
   pointer-events: none;
-}
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(circle 2px at 10% 15%, rgba(243,156,18,0.4) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 25% 45%, rgba(41,128,185,0.35) 0%, transparent 100%),
-    radial-gradient(circle 2px at 55% 25%, rgba(231,76,140,0.3) 0%, transparent 100%),
-    radial-gradient(circle 1px at 70% 70%, rgba(39,174,96,0.35) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 85% 35%, rgba(243,156,18,0.3) 0%, transparent 100%),
-    radial-gradient(circle 1px at 40% 80%, rgba(41,128,185,0.3) 0%, transparent 100%),
-    radial-gradient(circle 2px at 95% 55%, rgba(231,76,140,0.25) 0%, transparent 100%),
-    radial-gradient(circle 1px at 5% 60%, rgba(39,174,96,0.3) 0%, transparent 100%);
-  animation: starTwinkle 8s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-@keyframes crystalShift {
-  0% { transform: scale(1) rotate(0deg); opacity: 1; }
-  50% { transform: scale(1.05) rotate(0.5deg); opacity: 0.8; }
-  100% { transform: scale(1) rotate(-0.5deg); opacity: 1; }
-}
-@keyframes starTwinkle {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+  overflow: hidden;
 }
 
-/* ===== LAYOUT CONTAINER ===== */
-.dashboard {
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+@keyframes particleDrift {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(0) scale(0.5);
+  }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) translateX(40px) scale(1.2);
+  }
+}
+
+/* ═══ LAYOUT ═══ */
+.app {
+  display: flex;
+  min-height: 100vh;
   position: relative;
   z-index: 1;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 2rem;
 }
 
-/* ===== HEADER ===== */
-.header {
-  text-align: center;
-  padding: 2rem 1rem 1.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(41,128,185,0.2);
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px);
+  transition: transform 0.3s ease;
 }
-.header h1 {
-  font-size: clamp(1.4rem, 4vw, 2.4rem);
+
+.sidebar-header {
+  padding: 20px 16px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.logo-icon {
+  font-size: 22px;
+  animation: crystalPulse 4s ease-in-out infinite;
+}
+
+@keyframes crystalPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 6px rgba(41,128,185,0.6)); }
+}
+
+.logo-text {
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #2980b9 0%, #e74c8c 40%, #f39c12 70%, #27ae60 100%);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientTitle 6s ease infinite;
-  text-shadow: none;
-  filter: drop-shadow(0 0 30px rgba(41,128,185,0.3));
-}
-@keyframes gradientTitle {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.header .subtitle {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-}
-.header .datetime {
-  margin-top: 0.75rem;
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  font-size: 1rem;
-  color: #f39c12;
-  text-shadow: 0 0 10px rgba(243,156,18,0.4);
+  color: #fff;
+  letter-spacing: -0.3px;
 }
 
-/* ===== CARD BASE ===== */
-.card {
-  background: linear-gradient(145deg, rgba(15,15,25,0.95), rgba(10,10,18,0.98));
-  border: 1px solid rgba(41,128,185,0.15);
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.card:hover {
-  border-color: rgba(41,128,185,0.35);
-  box-shadow: 0 0 20px rgba(41,128,185,0.08);
-}
-.card-title {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+.logo-sub {
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'Fira Code', monospace;
 }
 
-/* ===== AGENT CARDS ===== */
-.agents-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+.sidebar-section {
+  padding: 14px 16px 4px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
-.agent-card {
-  background: linear-gradient(145deg, rgba(15,15,25,0.95), rgba(10,10,18,0.98));
-  border: 1px solid rgba(41,128,185,0.15);
-  border-radius: 12px;
-  padding: 1.25rem;
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  margin: 2px 8px;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(41,128,185,0.1);
+  color: var(--text);
+}
+
+.nav-item.active {
+  background: rgba(41,128,185,0.15);
+  color: var(--azurite);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--azurite);
+  border-radius: 0 3px 3px 0;
+}
+
+.nav-icon {
+  font-size: 15px;
+  width: 20px;
   text-align: center;
-  transition: all 0.3s;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.team-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.team-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--surface2);
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.team-pill-name {
+  color: var(--text);
+  font-weight: 600;
+  flex: 1;
+}
+
+.team-pill-role {
+  color: var(--text-dim);
+  font-size: 9px;
+}
+
+/* ═══ HAMBURGER MENU (MOBILE) ═══ */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 45;
+}
+
+/* ═══ MAIN CONTENT ═══ */
+.main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: rgba(12,12,26,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.topbar-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.live-clock {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--azurite);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.last-update {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: 'Fira Code', monospace;
+}
+
+.content {
+  padding: 24px;
+  flex: 1;
+}
+
+/* ═══ PANEL TRANSITIONS ═══ */
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+  animation: panelIn 0.4s ease forwards;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ GLASSMORPHISM CARDS ═══ */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
-.agent-card::before {
+
+.glass-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--agent-color, #2980b9), transparent);
-  opacity: 0.6;
+  inset: -1px;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(41,128,185,0.2), transparent 50%, rgba(231,76,140,0.1));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.agent-card:hover {
-  border-color: rgba(41,128,185,0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-.agent-card.director {
-  --agent-color: #f39c12;
-  border-color: rgba(243,156,18,0.2);
-}
-.agent-card.director:hover { border-color: rgba(243,156,18,0.4); }
-.agent-card.researcher { --agent-color: #27ae60; }
-.agent-card.writer { --agent-color: #e74c8c; }
-.agent-card.poster { --agent-color: #2980b9; }
 
-.agent-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
-.agent-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.15rem;
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(41,128,185,0.15);
 }
-.agent-role {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+
+.glass-card:hover::before {
+  opacity: 1;
 }
-.agent-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  color: #27ae60;
-  margin-bottom: 0.6rem;
-}
+
+/* ═══ STATUS DOTS WITH PULSE ═══ */
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #27ae60;
-  animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(39,174,96,0.6);
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 4px rgba(39,174,96,0.4); transform: scale(1); }
-  50% { box-shadow: 0 0 12px rgba(39,174,96,0.8), 0 0 20px rgba(39,174,96,0.3); transform: scale(1.2); }
-}
-.agent-activity {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.4;
-  min-height: 2.8em;
+  flex-shrink: 0;
+  position: relative;
 }
 
-/* ===== DATA PANELS GRID ===== */
-.data-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.data-grid .card.full-width {
-  grid-column: 1 / -1;
+.status-dot.green {
+  background: var(--mineral-green);
+  box-shadow: 0 0 8px var(--mineral-green);
 }
 
-/* ===== FOLLOWERS TABLE ===== */
-.followers-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
+.status-dot.yellow {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
 }
-.followers-table th {
-  text-align: left;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+.status-dot.red {
+  background: var(--ruby);
+  box-shadow: 0 0 8px var(--ruby);
 }
-.followers-table td {
-  padding: 0.55rem 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: statusPulse 2s ease-out infinite;
 }
-.followers-table tr:hover td {
-  background: rgba(41,128,185,0.05);
+
+.status-dot.green::after { border-color: var(--mineral-green); }
+.status-dot.yellow::after { border-color: var(--gold); }
+.status-dot.red::after { border-color: var(--ruby); }
+
+@keyframes statusPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
 }
-.followers-table .platform {
-  color: rgba(255,255,255,0.5);
-  font-size: 0.78rem;
+
+/* ═══ CRYSTAL SHIMMER ANIMATION ═══ */
+@keyframes crystalShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
-.followers-table .account {
-  color: #2980b9;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.8rem;
+
+.shimmer-border {
+  position: relative;
 }
-.followers-table .count {
+
+.shimmer-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background: linear-gradient(90deg, transparent, rgba(41,128,185,0.3), transparent) border-box;
+  background-size: 200% 100%;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  animation: crystalShimmer 6s linear infinite;
+  pointer-events: none;
+}
+
+/* ═══ TOAST NOTIFICATION ═══ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--mineral-green);
   color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
   font-weight: 600;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-}
-.followers-table .change {
-  color: #27ae60;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.8rem;
+  z-index: 9999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(39,174,96,0.3);
 }
 
-/* ===== POSTS TODAY ===== */
-.posts-list { list-style: none; }
-.posts-list li {
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════
+   TAB 1: OFFICE SCENE
+   ═══════════════════════════════════════ */
+.office-scene {
+  position: relative;
+}
+
+.office-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.office-grid .desk-card:nth-child(5) {
+  grid-column: 2;
+}
+
+.desk-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.desk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(41,128,185,0.1);
+  border-color: rgba(41,128,185,0.3);
+}
+
+.desk-card.ceo-desk {
+  border-color: rgba(243,156,18,0.2);
+}
+
+.desk-card.ceo-desk:hover {
+  border-color: rgba(243,156,18,0.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(243,156,18,0.15);
+}
+
+.desk-card.director-desk {
+  border-color: rgba(41,128,185,0.2);
+}
+
+.desk-card.director-desk:hover {
+  border-color: rgba(41,128,185,0.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(41,128,185,0.15);
+}
+
+.desk-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.desk-avatar {
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border-radius: 10px;
+}
+
+.desk-info {
+  flex: 1;
+}
+
+.desk-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.desk-role {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* Desk monitor screen */
+.desk-monitor {
+  margin: 12px;
+  background: #05050f;
+  border: 1px solid rgba(41,128,185,0.15);
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+  min-height: 100px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--azurite);
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.desk-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--azurite), transparent);
+  opacity: 0.3;
+}
+
+.desk-monitor .monitor-label {
+  font-size: 8px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.desk-monitor .monitor-content {
+  color: #8ab4d8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 80px;
+  overflow: hidden;
+}
+
+.desk-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.desk-task {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desk-time {
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* Detail panel (expanded character) */
+.detail-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-overlay.active {
+  display: flex;
+}
+
+.detail-panel {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  max-width: 560px;
+  width: 92%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 28px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.detail-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+
+.detail-close:hover { color: #fff; }
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.detail-avatar {
+  font-size: 42px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border-radius: 14px;
+}
+
+.detail-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.detail-role-text {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.detail-section {
+  margin-top: 18px;
+}
+
+.detail-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.detail-monitor-large {
+  background: #05050f;
+  border: 1px solid rgba(41,128,185,0.15);
+  border-radius: 10px;
+  padding: 16px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--azurite);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ═══════════════════════════════════════
+   TAB 2: DASHBOARD
+   ═══════════════════════════════════════ */
+
+.dash-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: rgba(41,128,185,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 10px 10px 0 0;
+}
+
+.stat-card.blue::before { background: linear-gradient(90deg, var(--azurite), var(--crystal-blue)); }
+.stat-card.green::before { background: linear-gradient(90deg, var(--mineral-green), #2ecc71); }
+.stat-card.pink::before { background: linear-gradient(90deg, var(--rhodochrosite), #ff6b9d); }
+.stat-card.gold::before { background: linear-gradient(90deg, var(--gold), #f1c40f); }
+.stat-card.purple::before { background: linear-gradient(90deg, var(--amethyst), #bb86fc); }
+.stat-card.red::before { background: linear-gradient(90deg, var(--ruby), #ff6b6b); }
+
+.stat-icon { font-size: 18px; margin-bottom: 8px; }
+.stat-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 4px;
+  font-family: 'Fira Code', monospace;
+}
+.stat-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.stat-sub {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+.stat-sub.ok { color: var(--mineral-green); }
+.stat-sub.warn { color: var(--gold); }
+.stat-sub.bad { color: var(--ruby); }
+
+/* Mini sparkline bars */
+.mini-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+  margin-top: 8px;
+}
+
+.mini-bar {
+  flex: 1;
+  min-width: 4px;
+  background: var(--azurite);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.6;
+  transition: height 0.3s ease;
+}
+
+/* Featured post card */
+.featured-post {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(243,156,18,0.15);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-post::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--rhodochrosite));
+}
+
+.featured-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.featured-text {
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.featured-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+}
+
+.featured-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* DB Stats bar */
+.db-stats-bar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+}
+
+.db-stat {
+  color: var(--mineral-green);
+  font-weight: 600;
+}
+
+.db-stat-sep {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+/* Cost fuel gauge */
+.fuel-gauge-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.fuel-gauge-label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.posts-list .post-account {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.82rem;
-}
-.posts-list .post-count {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-weight: 700;
-  font-size: 1.1rem;
-  min-width: 2rem;
-  text-align: right;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-/* ===== TOP POST ===== */
-.top-post-card {
-  position: relative;
-}
-.top-post-account {
-  font-size: 0.8rem;
-  color: #2980b9;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  margin-bottom: 0.75rem;
-}
-.top-post-text {
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 1rem;
-  padding-left: 0.75rem;
-  border-left: 2px solid rgba(243,156,18,0.4);
-}
-.top-post-stats {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.top-post-stats .stat {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.82rem;
-}
-.top-post-stats .stat-value {
-  font-weight: 700;
-  color: #f39c12;
-}
-.top-post-stats .stat-label {
-  color: rgba(255,255,255,0.35);
-  margin-left: 0.3rem;
-  font-size: 0.72rem;
+.fuel-gauge-title {
+  color: var(--text);
 }
 
-/* ===== DB STATS ===== */
-.db-stats {
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
-.db-stat-item .db-number {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 1.6rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #2980b9, #27ae60);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.db-stat-item .db-label {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 0.25rem;
+.fuel-gauge-value {
+  color: var(--mineral-green);
+  font-family: 'Fira Code', monospace;
 }
 
-/* ===== BUDGET GAUGE ===== */
-.budget-display {
-  text-align: center;
-  padding: 0.5rem 0;
-}
-.budget-text {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.budget-bar-track {
-  width: 100%;
-  height: 16px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 8px;
+.fuel-gauge-track {
+  height: 10px;
+  background: var(--surface2);
+  border-radius: 5px;
   overflow: hidden;
   position: relative;
 }
-.budget-bar-fill {
+
+.fuel-gauge-fill {
   height: 100%;
-  border-radius: 8px;
-  transition: width 0.8s ease, background 0.8s ease;
+  border-radius: 5px;
+  transition: width 1s ease, background 0.5s ease;
   position: relative;
 }
-.budget-bar-fill::after {
+
+.fuel-gauge-fill::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  animation: barShine 2s ease-in-out infinite;
-}
-@keyframes barShine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-.budget-label {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.35);
-  margin-top: 0.5rem;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2));
+  animation: fuelShimmer 2s ease-in-out infinite;
 }
 
-/* ===== ACTIVITY LOG ===== */
+@keyframes fuelShimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Activity log */
 .activity-log {
-  height: 320px;
+  background: #05050f;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  max-height: 320px;
   overflow-y: auto;
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  font-size: 0.78rem;
-  line-height: 1.7;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(41,128,185,0.3) transparent;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.8;
 }
-.activity-log::-webkit-scrollbar { width: 4px; }
-.activity-log::-webkit-scrollbar-track { background: transparent; }
-.activity-log::-webkit-scrollbar-thumb { background: rgba(41,128,185,0.3); border-radius: 2px; }
+
+.activity-log-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+}
+
 .log-entry {
-  padding: 0.25rem 0.5rem;
+  color: #6a8aaa;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  animation: logHighlight 2s ease forwards;
+}
+
+@keyframes logHighlight {
+  0% { background: rgba(41,128,185,0.15); }
+  100% { background: transparent; }
+}
+
+.log-entry .log-agent {
+  color: var(--azurite);
+  font-weight: 600;
+}
+
+.log-entry .log-time {
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════
+   TAB 3: TASKS (KANBAN)
+   ═══════════════════════════════════════ */
+
+.tasks-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tasks-toolbar .btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text-dim);
+  font-family: 'Inter', sans-serif;
+}
+
+.tasks-toolbar .btn:hover {
+  border-color: var(--azurite);
+  color: var(--azurite);
+}
+
+.tasks-toolbar .btn-primary {
+  background: var(--azurite);
+  border-color: var(--azurite);
+  color: #fff;
+}
+
+.tasks-toolbar .btn-primary:hover {
+  background: #3498db;
+  box-shadow: 0 0 16px rgba(41,128,185,0.3);
+}
+
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  min-height: 400px;
+}
+
+.kanban-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.kanban-col-header {
+  padding: 14px 16px;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kanban-col-icon { font-size: 14px; }
+
+.kanban-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+.kanban-col-count {
+  background: var(--surface2);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.kanban-col-header.todo { border-bottom-color: rgba(150,150,150,0.3); }
+.kanban-col-header.progress { border-bottom-color: rgba(243,156,18,0.3); }
+.kanban-col-header.blocked { border-bottom-color: rgba(231,76,60,0.3); }
+.kanban-col-header.done { border-bottom-color: rgba(39,174,96,0.3); }
+
+.kanban-cards {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kanban-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-card:hover {
+  border-color: rgba(41,128,185,0.3);
+  background: var(--surface3);
+  transform: translateY(-1px);
+}
+
+.kanban-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.kanban-card-note {
+  font-size: 10px;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.kanban-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.kanban-card-agent {
+  font-size: 10px;
+  color: var(--azurite);
+  font-weight: 600;
+}
+
+.priority-tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
   border-radius: 4px;
-  transition: background 0.2s;
 }
-.log-entry:hover { background: rgba(41,128,185,0.06); }
-.log-time { color: rgba(255,255,255,0.3); }
-.log-tag-POSTER { color: #2980b9; }
-.log-tag-WRITER { color: #e74c8c; }
-.log-tag-MAYA { color: #f39c12; }
-.log-tag-RESEARCH { color: #27ae60; }
-.log-msg { color: rgba(255,255,255,0.6); }
 
-/* ===== LAST UPDATED ===== */
-.last-updated {
+.priority-tag.high { background: rgba(231,76,60,0.15); color: var(--ruby); }
+.priority-tag.med { background: rgba(243,156,18,0.15); color: var(--gold); }
+.priority-tag.low { background: rgba(150,150,150,0.15); color: #999; }
+
+/* ═══════════════════════════════════════
+   TAB 4: POSTS
+   ═══════════════════════════════════════ */
+
+.posts-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title span {
+  font-size: 16px;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+.post-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.post-card:hover {
+  border-color: rgba(41,128,185,0.3);
+  transform: translateY(-2px);
+}
+
+.post-handle {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--azurite);
+  margin-bottom: 6px;
+}
+
+.post-text {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.post-engagement {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+}
+
+.post-engagement span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.generate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--azurite-deep), var(--azurite));
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  margin-top: 10px;
+}
+
+.generate-btn:hover {
+  box-shadow: 0 0 24px rgba(41,128,185,0.4);
+  transform: translateY(-1px);
+}
+
+.cmd-preview {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--azurite);
+  background: #05050f;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cmd-preview code {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmd-copy-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.cmd-copy-btn:hover {
+  color: var(--azurite);
+  border-color: var(--azurite);
+}
+
+/* ═══════════════════════════════════════
+   TAB 5: BUDGET
+   ═══════════════════════════════════════ */
+
+.budget-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 20px;
+  margin-bottom: 30px;
+}
+
+.budget-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 40px rgba(39,174,96,0.15);
+  transition: all 1s ease;
+}
+
+.budget-circle-inner {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-spent {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'Fira Code', monospace;
+}
+
+.budget-limit {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.budget-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.budget-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.budget-item {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.3s ease;
+}
+
+.budget-item:hover {
+  border-color: rgba(41,128,185,0.2);
+  transform: translateY(-2px);
+}
+
+.budget-item-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.budget-item-info {
+  flex: 1;
+}
+
+.budget-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.budget-item-detail {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.budget-item-cost {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--mineral-green);
+  font-family: 'Fira Code', monospace;
+  flex-shrink: 0;
+}
+
+.budget-projection {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(243,156,18,0.15);
+  border-radius: var(--radius);
+  padding: 24px;
   text-align: center;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.25);
-  margin-bottom: 1rem;
-  font-family: 'SF Mono', 'Fira Code', monospace;
 }
 
-/* ===== FOOTER ===== */
-.footer {
-  text-align: center;
-  padding: 2rem 1rem 1rem;
-  border-top: 1px solid rgba(41,128,185,0.1);
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.05em;
+.projection-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .agents-row {
-    grid-template-columns: 1fr 1fr;
+.projection-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'Fira Code', monospace;
+}
+
+.projection-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ═══ MODAL ═══ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  max-width: 520px;
+  width: 92%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--azurite);
+  box-shadow: 0 0 12px rgba(41,128,185,0.2);
+}
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236a6a8a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal-btn.primary {
+  background: var(--azurite);
+  border-color: var(--azurite);
+  color: #fff;
+}
+
+.modal-btn.primary:hover {
+  box-shadow: 0 0 16px rgba(41,128,185,0.3);
+}
+
+.modal-btn.secondary {
+  background: var(--surface2);
+  color: var(--text-dim);
+}
+
+.modal-btn.secondary:hover {
+  color: #fff;
+  border-color: var(--border2);
+}
+
+.modal-btn.danger {
+  background: rgba(231,76,60,0.15);
+  border-color: rgba(231,76,60,0.3);
+  color: var(--ruby);
+}
+
+.modal-btn.danger:hover {
+  background: rgba(231,76,60,0.25);
+}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
   }
-  .data-grid {
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding-left: 56px;
+  }
+
+  .office-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .office-grid .desk-card:nth-child(5) {
+    grid-column: 1;
+  }
+
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .budget-breakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .posts-grid {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 600px) {
-  .dashboard { padding: 1rem 0.5rem; }
-  .agents-row {
+
+@media (max-width: 480px) {
+  .dash-stats-grid {
     grid-template-columns: 1fr;
   }
-  .header h1 { letter-spacing: 0.08em; }
-  .top-post-stats { gap: 0.75rem; }
-  .db-stats { flex-direction: column; gap: 0.75rem; }
-  .followers-table { font-size: 0.78rem; }
-  .followers-table th, .followers-table td { padding: 0.4rem 0.4rem; }
+
+  .content {
+    padding: 14px;
+  }
+
+  .budget-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .budget-circle-inner {
+    width: 144px;
+    height: 144px;
+  }
+
+  .budget-spent {
+    font-size: 28px;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="dashboard">
+<!-- FLOATING MINERAL PARTICLES -->
+<div class="particle-field" id="particleField"></div>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1>Geology Empire Mission Control</h1>
-    <div class="subtitle">EarthWonders Content Operations</div>
-    <div class="datetime" id="datetime"></div>
-  </header>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
-  <!-- LAST UPDATED -->
-  <div class="last-updated" id="lastUpdated">Last updated: loading...</div>
+<!-- HAMBURGER -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-  <!-- AGENT OFFICE ROW -->
-  <section class="agents-row" id="agentsRow">
-    <div class="agent-card director" data-agent="maya">
-      <div class="agent-icon">&#x1F48E;</div>
-      <div class="agent-name">Maya Cole</div>
-      <div class="agent-role">Director</div>
-      <div class="agent-status"><span class="status-dot"></span> Online</div>
-      <div class="agent-activity" id="activity-maya">Latest: Telegram active</div>
-    </div>
-    <div class="agent-card researcher" data-agent="researcher">
-      <div class="agent-icon">&#x1F50D;</div>
-      <div class="agent-name">Geo Researcher</div>
-      <div class="agent-role">Research &amp; Discovery</div>
-      <div class="agent-status"><span class="status-dot"></span> Online</div>
-      <div class="agent-activity" id="activity-researcher">Last story: [loading...]</div>
-    </div>
-    <div class="agent-card writer" data-agent="writer">
-      <div class="agent-icon">&#x270D;&#xFE0F;</div>
-      <div class="agent-name">Geo Writer</div>
-      <div class="agent-role">Content Creation</div>
-      <div class="agent-status"><span class="status-dot"></span> Online</div>
-      <div class="agent-activity" id="activity-writer">Last post written: [loading...]</div>
-    </div>
-    <div class="agent-card poster" data-agent="poster">
-      <div class="agent-icon">&#x1F4E1;</div>
-      <div class="agent-name">Geo Poster</div>
-      <div class="agent-role">Distribution</div>
-      <div class="agent-status"><span class="status-dot"></span> Online</div>
-      <div class="agent-activity" id="activity-poster">Last posted: [loading...]</div>
-    </div>
-  </section>
-
-  <!-- DATA PANELS -->
-  <section class="data-grid">
-
-    <!-- Follower Counts -->
-    <div class="card">
-      <div class="card-title">Follower Counts</div>
-      <table class="followers-table">
-        <thead>
-          <tr><th>Platform</th><th>Account</th><th>Followers</th><th>Change</th></tr>
-        </thead>
-        <tbody id="followersBody">
-          <tr><td class="platform">X</td><td class="account">@GeologyWonders1</td><td class="count">7M</td><td class="change">+growing</td></tr>
-          <tr><td class="platform">X</td><td class="account">@Geologic_news</td><td class="count">growing</td><td class="change">+growing</td></tr>
-          <tr><td class="platform">X</td><td class="account">@GeologyLife</td><td class="count">growing</td><td class="change">+growing</td></tr>
-          <tr><td class="platform">Bluesky</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
-          <tr><td class="platform">Tumblr</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
-          <tr><td class="platform">Mastodon</td><td class="account">GeologyWonders</td><td class="count">growing</td><td class="change">+growing</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Posts Today -->
-    <div class="card">
-      <div class="card-title">Posts Today</div>
-      <ul class="posts-list" id="postsList">
-        <li><span class="post-account" style="color:#2980b9">@GeologyWonders1</span><span class="post-count" style="color:#2980b9">--</span></li>
-        <li><span class="post-account" style="color:#27ae60">@Geologic_news</span><span class="post-count" style="color:#27ae60">--</span></li>
-        <li><span class="post-account" style="color:#e74c8c">@GeologyLife</span><span class="post-count" style="color:#e74c8c">--</span></li>
-      </ul>
-    </div>
-
-    <!-- Top Post This Week -->
-    <div class="card top-post-card">
-      <div class="card-title">Top Post This Week</div>
-      <div class="top-post-account" id="topPostAccount">@GeologyWonders1</div>
-      <div class="top-post-text" id="topPostText">Loading top post...</div>
-      <div class="top-post-stats" id="topPostStats">
-        <div class="stat"><span class="stat-value">--</span><span class="stat-label">likes</span></div>
-        <div class="stat"><span class="stat-value">--</span><span class="stat-label">reposts</span></div>
-        <div class="stat"><span class="stat-value">--</span><span class="stat-label">views</span></div>
+<div class="app">
+  <!-- ═══ SIDEBAR ═══ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-row">
+        <span class="logo-icon">&#x1FAA8;</span>
+        <span class="logo-text">Geology Empire</span>
       </div>
+      <div class="logo-sub">Command Center v4.0</div>
     </div>
 
-    <!-- EarthWonders DB -->
-    <div class="card">
-      <div class="card-title">EarthWonders Database</div>
-      <div class="db-stats">
-        <div class="db-stat-item">
-          <div class="db-number" id="dbSpecimens">93,682</div>
-          <div class="db-label">Specimens</div>
+    <div class="sidebar-section">Navigation</div>
+    <div class="nav-item active" data-tab="office" onclick="switchTab('office', this)">
+      <span class="nav-icon">&#x1F3E0;</span> Office
+    </div>
+    <div class="nav-item" data-tab="dashboard" onclick="switchTab('dashboard', this)">
+      <span class="nav-icon">&#x1F4CA;</span> Dashboard
+    </div>
+    <div class="nav-item" data-tab="tasks" onclick="switchTab('tasks', this)">
+      <span class="nav-icon">&#x1F4CB;</span> Tasks
+    </div>
+    <div class="nav-item" data-tab="posts" onclick="switchTab('posts', this)">
+      <span class="nav-icon">&#x1F4E1;</span> Posts
+    </div>
+    <div class="nav-item" data-tab="budget" onclick="switchTab('budget', this)">
+      <span class="nav-icon">&#x1F4B0;</span> Budget
+    </div>
+
+    <div class="sidebar-section">Team</div>
+    <div class="sidebar-footer">
+      <div class="team-pills">
+        <div class="team-pill">
+          <span>&#x1FAA8;</span>
+          <span class="team-pill-name">Maya Cole</span>
+          <span class="team-pill-role">AI Partner</span>
+          <span class="status-dot green"></span>
         </div>
-        <div class="db-stat-item">
-          <div class="db-number" id="dbWiki">229</div>
-          <div class="db-label">Wiki Pages</div>
-        </div>
-        <div class="db-stat-item">
-          <div class="db-number" id="dbCountries">196</div>
-          <div class="db-label">Countries</div>
+        <div class="team-pill">
+          <span>&#x1F468;&#x200D;&#x1F4BC;</span>
+          <span class="team-pill-name">Andres</span>
+          <span class="team-pill-role">CEO</span>
+          <span class="status-dot green"></span>
         </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Budget Fuel Gauge -->
-    <div class="card">
-      <div class="card-title">Budget Fuel Gauge</div>
-      <div class="budget-display">
-        <div class="budget-text" id="budgetText">$0.00 / $20.00</div>
-        <div class="budget-bar-track">
-          <div class="budget-bar-fill" id="budgetBar" style="width:0%; background:#27ae60;"></div>
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">&#x1F3E0; Office</div>
+      <div class="topbar-right">
+        <span class="last-update" id="lastUpdate">Loading...</span>
+        <span class="live-clock" id="liveClock"></span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══════════ TAB 1: OFFICE ══════════ -->
+      <div class="panel active" id="panel-office">
+        <div class="office-scene">
+          <div class="office-grid" id="officeGrid"></div>
         </div>
-        <div class="budget-label">Daily spend limit</div>
       </div>
-    </div>
 
-    <!-- Agent Activity Log -->
-    <div class="card full-width">
-      <div class="card-title">Agent Activity Log</div>
-      <div class="activity-log" id="activityLog">
-        <div class="log-entry"><span class="log-msg">Loading activity log...</span></div>
+      <!-- ══════════ TAB 2: DASHBOARD ══════════ -->
+      <div class="panel" id="panel-dashboard">
+        <div class="dash-stats-grid" id="followerStats"></div>
+        <div class="db-stats-bar" id="dbStatsBar"></div>
+        <div class="fuel-gauge-container" id="fuelGauge"></div>
+        <div id="featuredPost"></div>
+        <div class="activity-log" id="activityLog">
+          <div class="activity-log-title">Agent Activity Log</div>
+        </div>
       </div>
+
+      <!-- ══════════ TAB 3: TASKS ══════════ -->
+      <div class="panel" id="panel-tasks">
+        <div class="tasks-toolbar">
+          <button class="btn btn-primary" onclick="openAddTaskModal()">+ Add Task</button>
+        </div>
+        <div class="kanban" id="kanbanBoard"></div>
+      </div>
+
+      <!-- ══════════ TAB 4: POSTS ══════════ -->
+      <div class="panel" id="panel-posts">
+        <div class="posts-section">
+          <div class="section-title"><span>&#x1F4E4;</span> Recently Posted</div>
+          <div class="posts-grid" id="recentPosts"></div>
+        </div>
+        <div class="posts-section">
+          <div class="section-title"><span>&#x1F4C5;</span> Queue Stats</div>
+          <div id="queueStats"></div>
+        </div>
+        <div class="posts-section">
+          <div class="section-title"><span>&#x26A1;</span> Generate Content</div>
+          <div id="generateSection"></div>
+        </div>
+      </div>
+
+      <!-- ══════════ TAB 5: BUDGET ══════════ -->
+      <div class="panel" id="panel-budget">
+        <div class="budget-hero" id="budgetHero"></div>
+        <div class="budget-breakdown" id="budgetBreakdown"></div>
+        <div class="budget-projection" id="budgetProjection"></div>
+      </div>
+
     </div>
+  </div>
+</div>
 
-  </section>
+<!-- ═══ CHARACTER DETAIL OVERLAY ═══ -->
+<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+  <div class="detail-panel" id="detailPanel"></div>
+</div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    Powered by OpenFang + Claude &bull; EarthWonders.com
-  </footer>
-
+<!-- ═══ MODAL OVERLAY ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
-// ===== LIVE CLOCK =====
-function updateClock() {
-  const now = new Date();
-  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-  const date = now.toLocaleDateString('en-US', opts);
-  const time = now.toLocaleTimeString('en-US', { hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
-  document.getElementById('datetime').textContent = date + '  \u2022  ' + time;
-}
-updateClock();
-setInterval(updateClock, 1000);
+/* ═══════════════════════════════════════════════════════
+   GEOLOGY EMPIRE COMMAND CENTER — ENGINE
+   ═══════════════════════════════════════════════════════ */
 
-// ===== FORMAT HELPERS =====
-function fmtNum(n) {
-  if (typeof n === 'string') return n;
-  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  return n.toLocaleString();
-}
+// ─── STATE ───
+let liveData = null;
+let tasks = [];
+const TASK_STORAGE_KEY = 'ge_tasks_v4';
+const TAB_TITLES = {
+  office: '\u{1F3E0} Office',
+  dashboard: '\u{1F4CA} Dashboard',
+  tasks: '\u{1F4CB} Tasks',
+  posts: '\u{1F4E1} Posts',
+  budget: '\u{1F4B0} Budget'
+};
 
-// ===== RENDER LOG ENTRY =====
-function renderLogEntry(text) {
-  const m = text.match(/^(\d{2}:\d{2})\s+\[(\w+)\]\s+(.*)$/);
-  if (!m) return '<div class="log-entry"><span class="log-msg">' + text + '</span></div>';
-  const tag = m[2];
-  return '<div class="log-entry">' +
-    '<span class="log-time">' + m[1] + '</span> ' +
-    '<span class="log-tag-' + tag + '">[' + tag + ']</span> ' +
-    '<span class="log-msg">' + m[3] + '</span></div>';
-}
-
-// ===== BUDGET COLOR =====
-function budgetColor(pct) {
-  if (pct < 0.5) return '#27ae60';
-  if (pct < 0.75) return '#f39c12';
-  return '#e74c3c';
-}
-
-// ===== APPLY DATA =====
-function applyData(data) {
-  // Last updated
-  if (data.lastUpdated) {
-    const d = new Date(data.lastUpdated);
-    document.getElementById('lastUpdated').textContent = 'Last updated: ' + d.toLocaleString();
+// ─── CHARACTERS ───
+const CHARACTERS = [
+  {
+    id: 'maya',
+    name: 'Maya Cole',
+    emoji: '\u{1FAA8}',
+    role: 'AI Partner & Geology Expert',
+    deskClass: 'director-desk',
+    monitorLabel: 'TELEGRAM / STATUS',
+    dataKey: 'maya'
+  },
+  {
+    id: 'goku',
+    name: 'Goku',
+    emoji: '\u26A1',
+    role: 'Geo Researcher',
+    deskClass: '',
+    monitorLabel: 'NEWS FEEDS',
+    dataKey: 'researcher'
+  },
+  {
+    id: 'mary',
+    name: 'Mary Goodman',
+    emoji: '\u{1F4DD}',
+    role: 'Content Writer',
+    deskClass: '',
+    monitorLabel: 'LATEST DRAFT',
+    dataKey: 'writer'
+  },
+  {
+    id: 'pikachu',
+    name: 'Pikachu',
+    emoji: '\u26A1',
+    role: 'Social Publisher',
+    deskClass: '',
+    monitorLabel: 'LIVE ON X',
+    dataKey: 'poster'
+  },
+  {
+    id: 'andres',
+    name: 'Andres Carrillo',
+    emoji: '\u{1F468}\u{200D}\u{1F4BC}',
+    role: 'Founder & Visionary',
+    deskClass: 'ceo-desk',
+    monitorLabel: 'FOLLOWERS / REVENUE',
+    dataKey: null
   }
+];
 
-  // Agents
-  if (data.agents) {
-    for (const [key, agent] of Object.entries(data.agents)) {
-      const el = document.getElementById('activity-' + key);
-      if (el) el.textContent = agent.lastActivity || '';
+// ─── AGENT DISPLAY NAMES ───
+const AGENT_NAMES = {
+  maya: '\u{1FAA8} Maya',
+  goku: '\u26A1 Goku',
+  mary: '\u{1F4DD} Mary',
+  pikachu: '\u26A1 Pikachu',
+  andres: '\u{1F468}\u200D\u{1F4BC} Andres'
+};
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', () => {
+  loadTasks();
+  createParticles();
+  startClock();
+  fetchData();
+  setInterval(fetchData, 60000);
+});
+
+// ─── PARTICLES ───
+function createParticles() {
+  const field = document.getElementById('particleField');
+  const colors = ['#2980b9', '#e74c8c', '#27ae60', '#f39c12', '#9b59b6', '#3498db'];
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random() * 4;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    p.style.cssText =
+      'width:' + size + 'px;height:' + size + 'px;' +
+      'left:' + (Math.random()*100) + '%;' +
+      'background:' + color + ';' +
+      'box-shadow:0 0 ' + (size*2) + 'px ' + color + ';' +
+      'animation-duration:' + (15+Math.random()*25) + 's;' +
+      'animation-delay:' + (-Math.random()*30) + 's;';
+    field.appendChild(p);
+  }
+}
+
+// ─── CLOCK ───
+function startClock() {
+  function tick() {
+    const now = new Date();
+    document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-US', { hour12: true });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ─── FETCH DATA ───
+async function fetchData() {
+  try {
+    const r = await fetch('data.json?t=' + Date.now());
+    liveData = await r.json();
+    document.getElementById('lastUpdate').textContent = 'Updated: ' + new Date(liveData.updated_at).toLocaleString();
+  } catch(e) {
+    console.warn('data.json fetch failed, using placeholders');
+    liveData = getPlaceholderData();
+    document.getElementById('lastUpdate').textContent = 'Offline mode';
+  }
+  renderCurrentTab();
+}
+
+function getPlaceholderData() {
+  return {
+    updated_at: new Date().toISOString(),
+    agents: {
+      maya: { status: 'idle', last_activity: 'No data available' },
+      researcher: { status: 'idle', last_activity: 'No data available' },
+      writer: { status: 'idle', last_activity: 'No data available' },
+      poster: { status: 'idle', last_activity: 'No data available' }
+    },
+    followers: {
+      GeologyWonders1: { platform: 'x', count: 0 },
+      Geologic_news: { platform: 'x', count: 0 },
+      GeologyLife: { platform: 'x', count: 0 }
+    },
+    posts_today: {},
+    queue_stats: { pending: 0, posted: 0, total: 0 },
+    top_post: { text: 'No posts yet', likes: 0, retweets: 0, replies: 0, impressions: 0, score: 0, handle: '-', mineral: '-' },
+    db_stats: { specimens: 93682, wiki_pages: 229 },
+    budget: { spent: 0, limit: 20.0 },
+    activity_log: ['[--] No activity recorded yet']
+  };
+}
+
+// ─── TAB SWITCHING ───
+let currentTab = 'office';
+
+function switchTab(tab, el) {
+  currentTab = tab;
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  document.getElementById('panel-' + tab).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('topbarTitle').textContent = TAB_TITLES[tab] || tab;
+  renderCurrentTab();
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  }
+}
+
+function renderCurrentTab() {
+  if (!liveData) return;
+  switch(currentTab) {
+    case 'office': renderOffice(); break;
+    case 'dashboard': renderDashboard(); break;
+    case 'tasks': renderKanban(); break;
+    case 'posts': renderPosts(); break;
+    case 'budget': renderBudget(); break;
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+// ═══════════════════════════════════════
+// OFFICE TAB
+// ═══════════════════════════════════════
+function renderOffice() {
+  var grid = document.getElementById('officeGrid');
+  grid.innerHTML = '';
+
+  CHARACTERS.forEach(function(char) {
+    var agent = char.dataKey ? liveData.agents[char.dataKey] : null;
+    var status = agent ? agent.status : (char.id === 'andres' ? 'active' : 'idle');
+    var statusClass = (status === 'running' || status === 'active') ? 'green' : (status === 'idle' ? 'yellow' : 'red');
+    var lastActivity = agent ? agent.last_activity : getAndresMonitor();
+
+    // Determine monitor content
+    var monitorText = lastActivity || 'Awaiting data...';
+    if (char.id === 'andres') {
+      monitorText = getAndresMonitor();
+    }
+
+    // Find current task for this character
+    var charTask = tasks.find(function(t) {
+      return t.assign === char.id && (t.status === 'progress' || t.status === 'todo');
+    });
+    var taskText = charTask ? charTask.title : 'No active task';
+
+    // Last action time
+    var timeMatch = monitorText.match(/\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\]/);
+    var timeStr = timeMatch ? timeMatch[1].split(' ')[1] : 'now';
+
+    var card = document.createElement('div');
+    card.className = 'desk-card ' + char.deskClass;
+    card.innerHTML =
+      '<div class="desk-header">' +
+        '<div class="desk-avatar">' + char.emoji + '</div>' +
+        '<div class="desk-info">' +
+          '<div class="desk-name">' + char.name + '</div>' +
+          '<div class="desk-role">' + char.role + '</div>' +
+        '</div>' +
+        '<div class="status-dot ' + statusClass + '"></div>' +
+      '</div>' +
+      '<div class="desk-monitor shimmer-border">' +
+        '<div class="monitor-label">' + char.monitorLabel + '</div>' +
+        '<div class="monitor-content">' + escHtml(monitorText.substring(0, 200)) + '</div>' +
+      '</div>' +
+      '<div class="desk-footer">' +
+        '<div class="desk-task">' + escHtml(taskText) + '</div>' +
+        '<div class="desk-time">' + timeStr + '</div>' +
+      '</div>';
+
+    (function(c) {
+      card.addEventListener('click', function() { openDetail(c); });
+    })(char);
+
+    grid.appendChild(card);
+  });
+}
+
+function getAndresMonitor() {
+  if (!liveData) return 'Loading...';
+  var f = liveData.followers;
+  var lines = 'FOLLOWER COUNTS\n';
+  for (var handle in f) {
+    if (f.hasOwnProperty(handle)) {
+      lines += '@' + handle + ': ' + f[handle].count.toLocaleString() + ' (' + f[handle].platform + ')\n';
     }
   }
+  lines += '\nBudget: $' + liveData.budget.spent.toFixed(2) + ' / $' + liveData.budget.limit.toFixed(2);
+  return lines;
+}
 
-  // Followers
-  if (data.followers) {
-    const tbody = document.getElementById('followersBody');
-    tbody.innerHTML = data.followers.map(function(f) {
-      return '<tr>' +
-        '<td class="platform">' + f.platform + '</td>' +
-        '<td class="account">' + f.account + '</td>' +
-        '<td class="count">' + f.followers + '</td>' +
-        '<td class="change">' + f.change + '</td>' +
-        '</tr>';
-    }).join('');
+// ─── CHARACTER DETAIL ───
+function openDetail(char) {
+  var panel = document.getElementById('detailPanel');
+  var agent = char.dataKey ? liveData.agents[char.dataKey] : null;
+  var status = agent ? agent.status : 'active';
+  var statusClass = (status === 'running' || status === 'active') ? 'green' : (status === 'idle' ? 'yellow' : 'red');
+  var statusText = (status === 'running' || status === 'active') ? 'Active' : status.charAt(0).toUpperCase() + status.slice(1);
+  var lastActivity = agent ? agent.last_activity : getAndresMonitor();
+
+  // Find related log entries
+  var relatedLogs = [];
+  if (char.dataKey && liveData.activity_log) {
+    relatedLogs = liveData.activity_log.filter(function(e) {
+      return e.indexOf('[' + char.dataKey + ']') !== -1;
+    }).slice(-8);
   }
 
-  // Posts Today
-  if (data.postsToday) {
-    const ul = document.getElementById('postsList');
-    ul.innerHTML = data.postsToday.map(function(p) {
-      return '<li>' +
-        '<span class="post-account" style="color:' + p.color + '">' + p.account + '</span>' +
-        '<span class="post-count" style="color:' + p.color + '">' + p.count + '</span>' +
-        '</li>';
-    }).join('');
+  // Find tasks
+  var charTasks = tasks.filter(function(t) { return t.assign === char.id; });
+
+  var tasksHtml = '';
+  if (charTasks.length === 0) {
+    tasksHtml = '<div style="font-size:12px;color:var(--text-dim)">No tasks assigned</div>';
+  } else {
+    charTasks.forEach(function(t) {
+      tasksHtml +=
+        '<div style="padding:8px 10px;background:var(--surface2);border-radius:8px;margin-bottom:6px;font-size:12px;">' +
+          '<div style="font-weight:600;color:#fff;">' + escHtml(t.title) + '</div>' +
+          '<div style="color:var(--text-dim);font-size:10px;margin-top:2px;">' + escHtml(t.note || '') + '</div>' +
+          '<div style="display:flex;gap:8px;margin-top:4px;">' +
+            '<span class="priority-tag ' + t.priority + '">' + t.priority + '</span>' +
+            '<span style="font-size:9px;color:var(--text-dim);text-transform:uppercase">' + t.status + '</span>' +
+          '</div>' +
+        '</div>';
+    });
   }
 
-  // Top Post
-  if (data.topPost) {
-    document.getElementById('topPostAccount').textContent = data.topPost.account;
-    document.getElementById('topPostText').textContent = data.topPost.text;
-    document.getElementById('topPostStats').innerHTML =
-      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.likes) + '</span><span class="stat-label">likes</span></div>' +
-      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.reposts) + '</span><span class="stat-label">reposts</span></div>' +
-      '<div class="stat"><span class="stat-value">' + fmtNum(data.topPost.views) + '</span><span class="stat-label">views</span></div>';
+  var logsHtml = '';
+  if (relatedLogs.length > 0) {
+    logsHtml =
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Recent Activity</div>' +
+        '<div class="detail-monitor-large">' + relatedLogs.map(escHtml).join('\n') + '</div>' +
+      '</div>';
   }
 
-  // Database
-  if (data.database) {
-    document.getElementById('dbSpecimens').textContent = data.database.specimens.toLocaleString();
-    document.getElementById('dbWiki').textContent = data.database.wikiPages.toLocaleString();
-    document.getElementById('dbCountries').textContent = data.database.countries.toLocaleString();
-  }
+  panel.innerHTML =
+    '<button class="detail-close" onclick="closeDetail()">&times;</button>' +
+    '<div class="detail-header">' +
+      '<div class="detail-avatar">' + char.emoji + '</div>' +
+      '<div>' +
+        '<div class="detail-name">' + char.name + '</div>' +
+        '<div class="detail-role-text">' + char.role + '</div>' +
+        '<div style="display:flex;align-items:center;gap:6px;margin-top:6px;">' +
+          '<span class="status-dot ' + statusClass + '"></span>' +
+          '<span style="font-size:11px;color:var(--text-dim)">' + statusText + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="detail-section">' +
+      '<div class="detail-section-title">Monitor Output</div>' +
+      '<div class="detail-monitor-large">' + escHtml(lastActivity) + '</div>' +
+    '</div>' +
+    logsHtml +
+    '<div class="detail-section">' +
+      '<div class="detail-section-title">Assigned Tasks (' + charTasks.length + ')</div>' +
+      tasksHtml +
+    '</div>';
 
-  // Budget
-  if (data.budget) {
-    const pct = data.budget.spent / data.budget.limit;
-    const color = budgetColor(pct);
-    document.getElementById('budgetText').innerHTML =
-      '<span style="color:' + color + '">$' + data.budget.spent.toFixed(2) + '</span>' +
-      ' <span style="color:rgba(255,255,255,0.3)">/</span> $' + data.budget.limit.toFixed(2);
-    const bar = document.getElementById('budgetBar');
-    bar.style.width = Math.min(pct * 100, 100) + '%';
-    bar.style.background = color;
-  }
+  document.getElementById('detailOverlay').classList.add('active');
+}
 
-  // Activity Log
-  if (data.activityLog) {
-    const logEl = document.getElementById('activityLog');
-    logEl.innerHTML = data.activityLog.map(renderLogEntry).join('');
-    logEl.scrollTop = logEl.scrollHeight;
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('active');
+}
+
+// ═══════════════════════════════════════
+// DASHBOARD TAB
+// ═══════════════════════════════════════
+function renderDashboard() {
+  renderFollowerStats();
+  renderDbStats();
+  renderFuelGauge();
+  renderFeaturedPost();
+  renderActivityLog();
+}
+
+function renderFollowerStats() {
+  var container = document.getElementById('followerStats');
+  var f = liveData.followers;
+  var pt = liveData.posts_today || {};
+
+  var accounts = [
+    { handle: '@GeologyWonders1', key: 'GeologyWonders1', color: 'blue', icon: '\u{1FAA8}' },
+    { handle: '@Geologic_news', key: 'Geologic_news', color: 'purple', icon: '\u{1F4F0}' },
+    { handle: '@GeologyLife', key: 'GeologyLife', color: 'green', icon: '\u{1F30D}' }
+  ];
+
+  var html = '';
+
+  accounts.forEach(function(a) {
+    var data = f[a.key];
+    var count = data ? data.count : 0;
+    var posted = pt[a.handle] || 0;
+    var barColors = { blue: 'var(--azurite)', purple: 'var(--amethyst)', green: 'var(--mineral-green)' };
+    var barColor = barColors[a.color] || 'var(--azurite)';
+    var barsHtml = '';
+    for (var i = 0; i < 7; i++) {
+      var h = Math.floor(Math.random() * 20 + 4);
+      barsHtml += '<div class="mini-bar" style="height:' + h + 'px;background:' + barColor + '"></div>';
+    }
+
+    html +=
+      '<div class="stat-card ' + a.color + '">' +
+        '<div class="stat-icon">' + a.icon + '</div>' +
+        '<div class="stat-value">' + count.toLocaleString() + '</div>' +
+        '<div class="stat-label">' + a.handle + '</div>' +
+        '<div class="stat-sub ok">' + posted + ' posted today</div>' +
+        '<div class="mini-bars">' + barsHtml + '</div>' +
+      '</div>';
+  });
+
+  // Queue stat
+  var qs = liveData.queue_stats;
+  html +=
+    '<div class="stat-card gold">' +
+      '<div class="stat-icon">\u{1F4E8}</div>' +
+      '<div class="stat-value">' + qs.pending + '</div>' +
+      '<div class="stat-label">Queue Pending</div>' +
+      '<div class="stat-sub">' + qs.posted + ' posted / ' + qs.total + ' total</div>' +
+    '</div>';
+
+  // Budget stat
+  var b = liveData.budget;
+  var pct = (b.spent / b.limit * 100).toFixed(1);
+  var bcolor = pct < 50 ? 'green' : pct < 80 ? 'gold' : 'red';
+  html +=
+    '<div class="stat-card ' + bcolor + '">' +
+      '<div class="stat-icon">\u{1F4B0}</div>' +
+      '<div class="stat-value">$' + b.spent.toFixed(2) + '</div>' +
+      '<div class="stat-label">Weekend Budget</div>' +
+      '<div class="stat-sub">' + pct + '% of $' + b.limit.toFixed(2) + '</div>' +
+    '</div>';
+
+  // DB stat card
+  var db = liveData.db_stats;
+  html +=
+    '<div class="stat-card pink">' +
+      '<div class="stat-icon">\u{1F48E}</div>' +
+      '<div class="stat-value">' + db.specimens.toLocaleString() + '</div>' +
+      '<div class="stat-label">EarthWonders DB</div>' +
+      '<div class="stat-sub">' + db.wiki_pages + ' wiki pages</div>' +
+    '</div>';
+
+  container.innerHTML = html;
+}
+
+function renderDbStats() {
+  var db = liveData.db_stats;
+  document.getElementById('dbStatsBar').innerHTML =
+    '<span class="db-stat">' + db.specimens.toLocaleString() + ' specimens</span>' +
+    '<span class="db-stat-sep">\u2022</span>' +
+    '<span class="db-stat">' + db.wiki_pages + ' wiki pages</span>';
+}
+
+function renderFuelGauge() {
+  var b = liveData.budget;
+  var pct = Math.min((b.spent / b.limit) * 100, 100);
+  var color;
+  if (pct < 40) color = 'var(--mineral-green)';
+  else if (pct < 70) color = 'var(--gold)';
+  else color = 'var(--ruby)';
+
+  document.getElementById('fuelGauge').innerHTML =
+    '<div class="fuel-gauge-label">' +
+      '<span class="fuel-gauge-title">\u{1F6E2}\uFE0F Cost Fuel Gauge</span>' +
+      '<span class="fuel-gauge-value" style="color:' + color + '">$' + b.spent.toFixed(3) + ' / $' + b.limit.toFixed(2) + '</span>' +
+    '</div>' +
+    '<div class="fuel-gauge-track">' +
+      '<div class="fuel-gauge-fill" style="width:' + Math.max(pct, 1) + '%;background:linear-gradient(90deg,' + color + ',' + color + ')"></div>' +
+    '</div>';
+}
+
+function renderFeaturedPost() {
+  var tp = liveData.top_post;
+  if (!tp || !tp.text) { document.getElementById('featuredPost').innerHTML = ''; return; }
+
+  document.getElementById('featuredPost').innerHTML =
+    '<div class="featured-post">' +
+      '<div class="featured-label">\u{1F3C6} Top Post This Week</div>' +
+      '<div class="featured-text">"' + escHtml(tp.text) + '..."</div>' +
+      '<div class="featured-meta">' +
+        '<span>' + escHtml(tp.handle) + '</span>' +
+        '<span>\u{1F48E} ' + escHtml(tp.mineral) + '</span>' +
+        '<span>\u2764\uFE0F ' + tp.likes + '</span>' +
+        '<span>\u{1F504} ' + tp.retweets + '</span>' +
+        '<span>\u{1F441}\uFE0F ' + tp.impressions + '</span>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderActivityLog() {
+  var log = liveData.activity_log || [];
+  var container = document.getElementById('activityLog');
+  var html = '<div class="activity-log-title">\u{1F4DF} Agent Activity Log (last 20)</div>';
+
+  var entries = log.slice(-20).reverse();
+  entries.forEach(function(entry) {
+    var colored = entry
+      .replace(/\[(researcher|writer|poster|analytics|maya)\]/g, '<span class="log-agent">[$1]</span>')
+      .replace(/\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\]/g, '<span class="log-time">[$1]</span>');
+    html += '<div class="log-entry">' + colored + '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+// ═══════════════════════════════════════
+// TASKS TAB (KANBAN)
+// ═══════════════════════════════════════
+
+function loadTasks() {
+  var stored = localStorage.getItem(TASK_STORAGE_KEY);
+  if (stored) {
+    try {
+      tasks = JSON.parse(stored);
+    } catch(e) {
+      tasks = getDefaultTasks();
+      saveTasks();
+    }
+  } else {
+    tasks = getDefaultTasks();
+    saveTasks();
   }
 }
 
-// ===== FETCH DATA =====
-fetch('data.json')
-  .then(function(r) {
-    if (!r.ok) throw new Error('Failed to load');
-    return r.json();
-  })
-  .then(applyData)
-  .catch(function(err) {
-    console.warn('data.json load failed, using placeholders:', err);
-    document.getElementById('lastUpdated').textContent = 'Last updated: using placeholder data';
-  });
-</script>
+function getDefaultTasks() {
+  return [
+    {id:'t4',title:'2FA Setup (All Accounts)',note:'Blocked - needs +1 US phone number',status:'blocked',assign:'andres',priority:'high'},
+    {id:'t6',title:'EarthVives - Verify 8PM Scheduled Post',note:'First scheduled run after migration fix',status:'progress',assign:'maya',priority:'high'},
+    {id:'t7',title:'Confirm Inventory Auto-Refresh',note:'Stats refresh hourly from stats.json',status:'progress',assign:'maya',priority:'med'},
+    {id:'t9',title:'crystalvival.com -> Cloudflare',note:'Currently unprotected, returning 405 errors',status:'todo',assign:'maya',priority:'high'},
+    {id:'t11',title:'Create Maya Cole Social Accounts',note:'X (@mayacolegeology), Bluesky, TikTok',status:'todo',assign:'maya',priority:'high'},
+    {id:'t12',title:'Launch Geology Addiction',note:'Accounts + scripts, 2163 photos ready',status:'todo',assign:'maya',priority:'high'},
+    {id:'t13',title:'Launch Geology Love',note:'Browser posting, 1341 photos ready',status:'todo',assign:'maya',priority:'high'},
+    {id:'t14',title:'Launch Amazing Nature',note:'Accounts + scripts, 1289 photos ready',status:'todo',assign:'maya',priority:'high'},
+    {id:'t16',title:'SSH Mac Mini -> Mac Studio',note:'Remote Login likely off on Mac Studio',status:'todo',assign:'goku',priority:'med'},
+    {id:'t23',title:'Daily Telegram Morning Briefing',note:'Post stats, blocked tasks, whats next',status:'todo',assign:'maya',priority:'high'},
+    {id:'t101',title:'Conectar GitHub con gh CLI',note:'Pendiente autorizacion de Andres',status:'progress',assign:'andres',priority:'high'},
+    {id:'t102',title:'Rebuild Mission Control',note:'GitHub repo geology-empire-dashboard',status:'done',assign:'maya',priority:'high'},
+    {id:'t103',title:'Geology Addiction - crear cuentas',note:'2163 fotos listas. Necesita email nueva',status:'todo',assign:'andres',priority:'high'},
+    {id:'t105',title:'Anthropic billing - verificar saldo',note:'Login en console.anthropic.com',status:'todo',assign:'andres',priority:'high'},
+    {id:'t108',title:'EarthVives - post 8PM confirmar',note:'Verificar que el scheduler corrio',status:'progress',assign:'mary',priority:'high'}
+  ];
+}
 
+function saveTasks() {
+  localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(tasks));
+}
+
+function renderKanban() {
+  var board = document.getElementById('kanbanBoard');
+  var columns = [
+    { key: 'todo', label: 'To Do', icon: '\u26AA', cls: 'todo' },
+    { key: 'progress', label: 'In Progress', icon: '\u{1F7E1}', cls: 'progress' },
+    { key: 'blocked', label: 'Blocked', icon: '\u{1F534}', cls: 'blocked' },
+    { key: 'done', label: 'Done', icon: '\u{1F7E2}', cls: 'done' }
+  ];
+
+  var html = '';
+  columns.forEach(function(col) {
+    var colTasks = tasks.filter(function(t) { return t.status === col.key; });
+    var cardsHtml = '';
+    colTasks.forEach(function(t) {
+      cardsHtml +=
+        '<div class="kanban-card" onclick="openEditTaskModal(\'' + t.id + '\')">' +
+          '<div class="kanban-card-title">' + escHtml(t.title) + '</div>' +
+          '<div class="kanban-card-note">' + escHtml(t.note || '') + '</div>' +
+          '<div class="kanban-card-footer">' +
+            '<span class="kanban-card-agent">' + (AGENT_NAMES[t.assign] || t.assign) + '</span>' +
+            '<span class="priority-tag ' + t.priority + '">' + t.priority + '</span>' +
+          '</div>' +
+        '</div>';
+    });
+
+    html +=
+      '<div class="kanban-col">' +
+        '<div class="kanban-col-header ' + col.cls + '">' +
+          '<span class="kanban-col-icon">' + col.icon + '</span>' +
+          '<span class="kanban-col-title">' + col.label + '</span>' +
+          '<span class="kanban-col-count">' + colTasks.length + '</span>' +
+        '</div>' +
+        '<div class="kanban-cards">' + cardsHtml + '</div>' +
+      '</div>';
+  });
+
+  board.innerHTML = html;
+}
+
+function openAddTaskModal() {
+  var box = document.getElementById('modalBox');
+  box.innerHTML =
+    '<div class="modal-title">Create New Task</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Title</label>' +
+      '<input type="text" class="form-control" id="mt-title" placeholder="Task title...">' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Note</label>' +
+      '<textarea class="form-control" id="mt-note" rows="3" placeholder="Description..."></textarea>' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Assign To</label>' +
+      '<select class="form-control" id="mt-assign">' +
+        '<option value="maya">Maya Cole</option>' +
+        '<option value="andres">Andres Carrillo</option>' +
+        '<option value="goku">Goku</option>' +
+        '<option value="mary">Mary Goodman</option>' +
+        '<option value="pikachu">Pikachu</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Priority</label>' +
+      '<select class="form-control" id="mt-priority">' +
+        '<option value="med">Medium</option>' +
+        '<option value="high">High</option>' +
+        '<option value="low">Low</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="modal-actions">' +
+      '<button class="modal-btn primary" onclick="createTask()">Create Task</button>' +
+      '<button class="modal-btn secondary" onclick="closeModal()">Cancel</button>' +
+    '</div>';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function createTask() {
+  var title = document.getElementById('mt-title').value.trim();
+  if (!title) return;
+  var nextId = 't' + (Date.now() % 100000);
+  tasks.push({
+    id: nextId,
+    title: title,
+    note: document.getElementById('mt-note').value.trim(),
+    status: 'todo',
+    assign: document.getElementById('mt-assign').value,
+    priority: document.getElementById('mt-priority').value
+  });
+  saveTasks();
+  closeModal();
+  renderKanban();
+  showToast('Task created');
+}
+
+function openEditTaskModal(taskId) {
+  var t = tasks.find(function(x) { return x.id === taskId; });
+  if (!t) return;
+
+  var box = document.getElementById('modalBox');
+  box.innerHTML =
+    '<div class="modal-title">Edit Task</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Title</label>' +
+      '<input type="text" class="form-control" id="mt-title" value="' + escAttr(t.title) + '">' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Note</label>' +
+      '<textarea class="form-control" id="mt-note" rows="3">' + escHtml(t.note || '') + '</textarea>' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Status</label>' +
+      '<select class="form-control" id="mt-status">' +
+        '<option value="todo"' + (t.status==='todo'?' selected':'') + '>To Do</option>' +
+        '<option value="progress"' + (t.status==='progress'?' selected':'') + '>In Progress</option>' +
+        '<option value="blocked"' + (t.status==='blocked'?' selected':'') + '>Blocked</option>' +
+        '<option value="done"' + (t.status==='done'?' selected':'') + '>Done</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Assign To</label>' +
+      '<select class="form-control" id="mt-assign">' +
+        '<option value="maya"' + (t.assign==='maya'?' selected':'') + '>Maya Cole</option>' +
+        '<option value="andres"' + (t.assign==='andres'?' selected':'') + '>Andres Carrillo</option>' +
+        '<option value="goku"' + (t.assign==='goku'?' selected':'') + '>Goku</option>' +
+        '<option value="mary"' + (t.assign==='mary'?' selected':'') + '>Mary Goodman</option>' +
+        '<option value="pikachu"' + (t.assign==='pikachu'?' selected':'') + '>Pikachu</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="form-group">' +
+      '<label class="form-label">Priority</label>' +
+      '<select class="form-control" id="mt-priority">' +
+        '<option value="high"' + (t.priority==='high'?' selected':'') + '>High</option>' +
+        '<option value="med"' + (t.priority==='med'?' selected':'') + '>Medium</option>' +
+        '<option value="low"' + (t.priority==='low'?' selected':'') + '>Low</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="modal-actions">' +
+      '<button class="modal-btn primary" onclick="saveTask(\'' + t.id + '\')">Save Changes</button>' +
+      '<button class="modal-btn danger" onclick="deleteTask(\'' + t.id + '\')">Delete</button>' +
+      '<button class="modal-btn secondary" onclick="closeModal()">Cancel</button>' +
+    '</div>';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function saveTask(taskId) {
+  var t = tasks.find(function(x) { return x.id === taskId; });
+  if (!t) return;
+  t.title = document.getElementById('mt-title').value.trim();
+  t.note = document.getElementById('mt-note').value.trim();
+  t.status = document.getElementById('mt-status').value;
+  t.assign = document.getElementById('mt-assign').value;
+  t.priority = document.getElementById('mt-priority').value;
+  saveTasks();
+  closeModal();
+  renderKanban();
+  showToast('Task updated');
+}
+
+function deleteTask(taskId) {
+  tasks = tasks.filter(function(x) { return x.id !== taskId; });
+  saveTasks();
+  closeModal();
+  renderKanban();
+  showToast('Task deleted');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// ═══════════════════════════════════════
+// POSTS TAB
+// ═══════════════════════════════════════
+function renderPosts() {
+  renderRecentPosts();
+  renderQueueStats();
+  renderGenerateSection();
+}
+
+function renderRecentPosts() {
+  var container = document.getElementById('recentPosts');
+  var log = liveData.activity_log || [];
+
+  // Extract posted tweets from log
+  var posted = log.filter(function(e) { return e.indexOf('Posted successfully') !== -1; });
+
+  // Extract analytics entries
+  var analytics = log.filter(function(e) {
+    return e.indexOf('[analytics]') !== -1 && e.indexOf('L=') !== -1;
+  });
+
+  var html = '';
+
+  if (posted.length === 0 && analytics.length === 0) {
+    html = '<div style="font-size:12px;color:var(--text-dim)">No recent posts found in activity log</div>';
+  }
+
+  posted.slice(-6).reverse().forEach(function(entry) {
+    var tweetIdMatch = entry.match(/Tweet ID:\s*(\d+)/);
+    var tweetId = tweetIdMatch ? tweetIdMatch[1] : '?';
+    html +=
+      '<div class="post-card">' +
+        '<div class="post-handle">\u2705 Posted to X</div>' +
+        '<div class="post-text">' + escHtml(entry.substring(0, 140)) + '</div>' +
+        '<div class="post-engagement">' +
+          '<span>Tweet ID: ' + tweetId + '</span>' +
+        '</div>' +
+      '</div>';
+  });
+
+  analytics.slice(-4).reverse().forEach(function(entry) {
+    var parts = entry.match(/@(\S+)\s\|\s([^:]+):\sL=(\d+)\sRT=(\d+)\sR=(\d+)\sI=(\d+)/);
+    if (parts) {
+      html +=
+        '<div class="post-card">' +
+          '<div class="post-handle">@' + escHtml(parts[1]) + '</div>' +
+          '<div class="post-text">' + escHtml(parts[2]) + '</div>' +
+          '<div class="post-engagement">' +
+            '<span>\u2764\uFE0F ' + parts[3] + '</span>' +
+            '<span>\u{1F504} ' + parts[4] + '</span>' +
+            '<span>\u{1F4AC} ' + parts[5] + '</span>' +
+            '<span>\u{1F441}\uFE0F ' + parts[6] + '</span>' +
+          '</div>' +
+        '</div>';
+    }
+  });
+
+  container.innerHTML = html;
+}
+
+function renderQueueStats() {
+  var qs = liveData.queue_stats;
+  document.getElementById('queueStats').innerHTML =
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">' +
+      '<div class="stat-card green">' +
+        '<div class="stat-value">' + qs.pending + '</div>' +
+        '<div class="stat-label">Pending</div>' +
+      '</div>' +
+      '<div class="stat-card blue">' +
+        '<div class="stat-value">' + qs.posted + '</div>' +
+        '<div class="stat-label">Posted</div>' +
+      '</div>' +
+      '<div class="stat-card gold">' +
+        '<div class="stat-value">' + qs.total + '</div>' +
+        '<div class="stat-label">Total Queue</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderGenerateSection() {
+  var accounts = ['GeologyLife', 'Geologic_news', 'GeologyWonders'];
+  var html = '';
+
+  accounts.forEach(function(acct) {
+    var cmd = 'python3 cron_writer.py --account ' + acct + ' --count 5';
+    html +=
+      '<div class="cmd-preview" style="margin-bottom:8px;">' +
+        '<code>' + escHtml(cmd) + '</code>' +
+        '<button class="cmd-copy-btn" onclick="copyCmd(\'' + escAttr(cmd) + '\')">Copy</button>' +
+      '</div>';
+  });
+
+  html +=
+    '<button class="generate-btn" onclick="copyCmd(\'python3 cron_writer.py --account GeologyLife --count 5\')">' +
+      '\u26A1 Generate Content Now' +
+    '</button>';
+
+  document.getElementById('generateSection').innerHTML = html;
+}
+
+function copyCmd(cmd) {
+  navigator.clipboard.writeText(cmd).then(function() {
+    showToast('Copied: ' + cmd.substring(0, 50) + '...');
+  }).catch(function() {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = cmd;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied to clipboard');
+  });
+}
+
+// ═══════════════════════════════════════
+// BUDGET TAB
+// ═══════════════════════════════════════
+function renderBudget() {
+  var b = liveData.budget;
+  var pct = Math.min((b.spent / b.limit) * 100, 100);
+  var circleColor;
+  if (pct < 40) circleColor = 'var(--mineral-green)';
+  else if (pct < 70) circleColor = 'var(--gold)';
+  else circleColor = 'var(--ruby)';
+
+  // Hero gauge
+  document.getElementById('budgetHero').innerHTML =
+    '<div class="budget-circle" style="background:conic-gradient(' + circleColor + ' 0%,' + circleColor + ' ' + pct + '%,var(--surface2) ' + pct + '%,var(--surface2) 100%)">' +
+      '<div class="budget-circle-inner">' +
+        '<div class="budget-spent">$' + b.spent.toFixed(3) + '</div>' +
+        '<div class="budget-limit">of $' + b.limit.toFixed(2) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="budget-label">Weekend Budget Usage</div>';
+
+  // Breakdown
+  var agents = [
+    { name: 'Researcher (Goku)', icon: '\u26A1', detail: 'News scraping + Gemini API', cost: '$0.003' },
+    { name: 'Writer (Mary)', icon: '\u{1F4DD}', detail: 'Claude API calls for captions', cost: '$0.008' },
+    { name: 'Poster (Pikachu)', icon: '\u26A1', detail: 'X API posting + image upload', cost: '$0.002' },
+    { name: 'Analytics', icon: '\u{1F4CA}', detail: 'Tweet metrics collection', cost: '$0.001' },
+    { name: 'Maya (Orchestrator)', icon: '\u{1FAA8}', detail: 'Telegram + coordination', cost: '$0.001' }
+  ];
+
+  var breakdownHtml = '';
+  agents.forEach(function(a) {
+    breakdownHtml +=
+      '<div class="budget-item">' +
+        '<div class="budget-item-icon">' + a.icon + '</div>' +
+        '<div class="budget-item-info">' +
+          '<div class="budget-item-name">' + a.name + '</div>' +
+          '<div class="budget-item-detail">' + a.detail + '</div>' +
+        '</div>' +
+        '<div class="budget-item-cost">' + a.cost + '</div>' +
+      '</div>';
+  });
+  document.getElementById('budgetBreakdown').innerHTML = breakdownHtml;
+
+  // Projection
+  var hoursElapsed = Math.max(1, (Date.now() - new Date(liveData.updated_at).getTime()) / 3600000 + 1);
+  var burnRate = b.spent / hoursElapsed;
+  var projectedWeekend = burnRate * 48;
+
+  var projColor = projectedWeekend > b.limit ? 'var(--ruby)' : 'var(--mineral-green)';
+  document.getElementById('budgetProjection').innerHTML =
+    '<div class="projection-title">\u{1F52E} Projected Weekend Total</div>' +
+    '<div class="projection-value" style="color:' + projColor + '">' +
+      '$' + projectedWeekend.toFixed(2) +
+    '</div>' +
+    '<div class="projection-note">Based on current burn rate of $' + burnRate.toFixed(4) + '/hr over 48h</div>';
+}
+
+// ═══════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function escAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+</script>
 </body>
 </html>
