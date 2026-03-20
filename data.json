@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-20T00:44:08.775173",
+  "updated_at": "2026-03-20T00:53:12.926577",
   "agents": {
     "maya": {
       "status": "active",
@@ -47,7 +47,7 @@
     "impressions": 5,
     "score": 0,
     "posted_at": "2026-03-19T08:22:14.754356",
-    "scored_at": "2026-03-20T05:50:06.828292+00:00"
+    "scored_at": "2026-03-20T06:52:55.561213+00:00"
   },
   "recent_posts": [
     {
@@ -127,7 +127,7 @@
       "impressions": 5,
       "score": 0,
       "posted_at": "2026-03-19T08:22:14.754356",
-      "scored_at": "2026-03-20T05:50:06.828292+00:00"
+      "scored_at": "2026-03-20T06:52:55.561213+00:00"
     },
     {
       "tweet_id": "2034773355040289114",
@@ -140,7 +140,7 @@
       "impressions": 3,
       "score": 0,
       "posted_at": "2026-03-19T23:25:46.976188",
-      "scored_at": "2026-03-20T05:50:08.264562+00:00"
+      "scored_at": "2026-03-20T06:52:57.005719+00:00"
     },
     {
       "tweet_id": "2034870039451713607",
@@ -153,7 +153,7 @@
       "impressions": 0,
       "score": 0,
       "posted_at": "2026-03-20T05:49:58.289828",
-      "scored_at": "2026-03-20T05:50:09.680379+00:00"
+      "scored_at": "2026-03-20T06:52:58.444917+00:00"
     },
     {
       "tweet_id": "2034773478923280554",
@@ -166,7 +166,7 @@
       "impressions": 0,
       "score": 0,
       "posted_at": "2026-03-19T23:26:16.466485",
-      "scored_at": "2026-03-20T05:50:11.124706+00:00"
+      "scored_at": "2026-03-20T06:52:59.872068+00:00"
     }
   ],
   "db_stats": {
@@ -178,7 +178,7 @@
     "spent": 0.015,
     "limit": 20.0
   },
-  "errors_24h": 11,
+  "errors_24h": 5,
   "cron_schedule": [
     {
       "job": "writer",
@@ -206,14 +206,6 @@
     }
   ],
   "activity_log": [
-    "[2026-03-19 23:48:42] [researcher]   Error scraping Mindat Latest: HTTP Error 403: Forbidden",
-    "[2026-03-19 23:48:42] [researcher]     No articles found",
-    "[2026-03-19 23:48:43] [researcher]   Scraping GIA News...",
-    "[2026-03-19 23:49:03] [researcher]   Error scraping GIA News: The read operation timed out",
-    "[2026-03-19 23:49:03] [researcher]     No articles found",
-    "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved.",
-    "[2026-03-19 23:49:10] [writer] Loaded content pool: 93,682 specimens",
-    "[2026-03-19 23:49:10] [writer] Generating 5 posts for @GeologyLife...",
     "[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...",
     "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...",
     "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.",
@@ -235,6 +227,14 @@
     "[2026-03-19 23:50:24] [health] Health check complete. Critical: False",
     "[2026-03-19 23:50:25] [health] Health report sent to Telegram.",
     "[2026-03-20 00:43:50] [health] Health check complete. Critical: False",
-    "[2026-03-20 00:43:51] [health] Health report sent to Telegram."
+    "[2026-03-20 00:43:51] [health] Health report sent to Telegram.",
+    "[2026-03-20 00:49:51] [health] Health check complete. Critical: False",
+    "[2026-03-20 00:49:52] [health] Health report sent to Telegram.",
+    "[2026-03-20 00:52:55] [analytics] Found 4 posted tweets to collect analytics for.",
+    "[2026-03-20 00:52:55] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)",
+    "[2026-03-20 00:52:57] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)",
+    "[2026-03-20 00:52:58] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-20 00:52:59] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)",
+    "[2026-03-20 00:53:00] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4"
   ]
 }

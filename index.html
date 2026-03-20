@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Geology Empire Command Center v4</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1FAA8;</text></svg>">
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap">
 <style>
 /* =============================== */
 /* RESET & VARIABLES               */
@@ -49,13 +49,46 @@ html, body {
 /* =============================== */
 body {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26, 107, 138, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(212, 84, 122, 0.05) 0%, transparent 60%),
-    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(10, 14, 26, 1) 0%, transparent 100%),
-    radial-gradient(ellipse 40% 30% at 10% 30%, rgba(123, 94, 167, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 90% 70%, rgba(45, 122, 79, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26, 107, 138, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(212, 84, 122, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 90%, rgba(26, 107, 138, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 10% 30%, rgba(123, 94, 167, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 90% 70%, rgba(45, 122, 79, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 30% 25% at 60% 40%, rgba(201, 162, 39, 0.06) 0%, transparent 40%),
     linear-gradient(180deg, #070710 0%, #0a0e1a 40%, #070710 100%);
   background-attachment: fixed;
+}
+
+/* Diagonal mineral vein lines across background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 30%, rgba(26,107,138,0.08) 30.5%, rgba(26,107,138,0.12) 31%, transparent 31.5%),
+    linear-gradient(135deg, transparent 55%, rgba(212,84,122,0.06) 55.5%, rgba(212,84,122,0.10) 56%, transparent 56.5%),
+    linear-gradient(135deg, transparent 78%, rgba(123,94,167,0.05) 78.5%, rgba(123,94,167,0.08) 79%, transparent 79.5%),
+    linear-gradient(45deg, transparent 20%, rgba(45,122,79,0.05) 20.5%, rgba(45,122,79,0.08) 21%, transparent 21.5%),
+    linear-gradient(45deg, transparent 65%, rgba(26,107,138,0.04) 65.5%, rgba(26,107,138,0.07) 66%, transparent 66.5%);
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 200px at 15% 25%, rgba(26,107,138,0.12) 0%, transparent 70%),
+    radial-gradient(circle 150px at 85% 75%, rgba(212,84,122,0.10) 0%, transparent 70%),
+    radial-gradient(circle 180px at 50% 85%, rgba(45,122,79,0.08) 0%, transparent 70%),
+    radial-gradient(circle 120px at 75% 15%, rgba(201,162,39,0.06) 0%, transparent 60%);
+  animation: caveBreath 8s ease-in-out infinite;
+}
+@keyframes caveBreath {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* Glowing mineral veins */
@@ -78,8 +111,8 @@ body {
 .vein-amethyst::after { background: linear-gradient(90deg, transparent, var(--amethyst), transparent); box-shadow: 0 0 8px var(--amethyst-glow); }
 
 @keyframes veinGlow {
-  0%, 100% { opacity: 0.05; }
-  50% { opacity: 0.25; }
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.55; }
 }
 
 /* Bioluminescent glow spots */
@@ -93,8 +126,8 @@ body {
   animation-delay: var(--delay);
 }
 @keyframes bioGlow {
-  0%, 100% { opacity: 0.02; transform: scale(0.8); }
-  50% { opacity: 0.08; transform: scale(1.2); }
+  0%, 100% { opacity: 0.08; transform: scale(0.8); }
+  50% { opacity: 0.25; transform: scale(1.3); }
 }
 
 /* Floating mineral particles */
@@ -109,9 +142,9 @@ body {
 }
 @keyframes floatUp {
   0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
-  10% { opacity: 0.5; }
-  50% { transform: translateY(40vh) translateX(var(--drift, 10px)) scale(0.8); opacity: 0.35; }
-  80% { opacity: 0.2; }
+  10% { opacity: 0.7; }
+  50% { transform: translateY(40vh) translateX(var(--drift, 10px)) scale(0.8); opacity: 0.5; }
+  80% { opacity: 0.3; }
   100% { transform: translateY(-20vh) translateX(var(--drift-end, -5px)) scale(1); opacity: 0; }
 }
 
@@ -258,13 +291,61 @@ body {
   opacity: 0.5;
 }
 .desk-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  border-color: var(--glass-border-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--desk-accent, rgba(26,107,138,0.15));
+  border-color: var(--desk-accent, var(--azurite));
+}
+
+/* Typing animation on active desks */
+.desk-card[data-status="active"] .desk-monitor::after {
+  animation: monitorFlicker 3s ease-in-out infinite;
+}
+@keyframes monitorFlicker {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.08; }
+}
+.desk-card[data-status="active"] {
+  border-color: rgba(45, 122, 79, 0.25);
+  box-shadow: 0 0 15px rgba(45, 122, 79, 0.08);
+}
+.desk-card[data-status="error"] {
+  border-color: rgba(212, 84, 122, 0.3);
+  box-shadow: 0 0 15px rgba(212, 84, 122, 0.1);
+  animation: errorGlow 2s ease-in-out infinite;
+}
+@keyframes errorGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 84, 122, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(212, 84, 122, 0.2); }
+}
+
+/* Typing cursor for active writer */
+.typing-cursor::after {
+  content: '█';
+  animation: cursorBlink 1s step-end infinite;
+  color: var(--azurite);
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Broadcast signal animation for poster */
+.broadcast-signal {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-left: 6px;
+  animation: broadcastPulse 1.5s ease-out infinite;
+}
+@keyframes broadcastPulse {
+  0% { box-shadow: 0 0 0 0 rgba(201,162,39,0.6); }
+  100% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
 }
 .desk-card.maya-desk {
   --desk-accent: var(--gold);
-  border-color: rgba(201, 162, 39, 0.15);
+  border-color: rgba(201, 162, 39, 0.25);
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.06), inset 0 0 30px rgba(201, 162, 39, 0.02);
 }
 .desk-card.researcher-desk { --desk-accent: #00d4ff; }
 .desk-card.writer-desk { --desk-accent: var(--rhodochrosite); }
@@ -820,7 +901,7 @@ body {
   #top-bar .clock-area { display: none; }
 }
 </style>
-<script>window.__STATIC_DATA__ = {"updated_at": "2026-03-20T00:44:08.775173", "agents": {"maya": {"status": "active", "last_action": "OpenFang running"}, "researcher": {"status": "active", "last_action": "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved."}, "writer": {"status": "active", "last_action": "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)"}, "poster": {"status": "active", "last_action": "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607"}}, "openfang": {"running": true, "pid": "78953", "exit_code": "0"}, "accounts": ["GeologyWonders1", "Geologic_news", "GeologyLife"], "queue": {"total": 20, "pending": 16, "posted": 4}, "posts_today": {"@GeologyLife": 1}, "top_post": {"tweet_id": "2034545935062360103", "handle": "@GeologyLife", "mineral": "Fluorite, Barite", "text_preview": "Nothing beats that moment when you crack open a rock and fin", "likes": 0, "retweets": 0, "replies": 0, "impressions": 5, "score": 0, "posted_at": "2026-03-19T08:22:14.754356", "scored_at": "2026-03-20T05:50:06.828292+00:00"}, "recent_posts": [{"handle": "@Geologic_news", "text": "Scientists confirmed: This rhodochrosite specimen contains 61.7% manganese carbonate by weight.\n\nThat's what creates the signature rose-red color. Pure chemistry turned into crystal art.\n\nThe Greek na", "mineral": "Rhodochrosite", "tweet_id": "2034773478923280554", "posted_at": "2026-03-19T23:26:16.466485", "image_url": "https://cdn.earthwonders.com/uploads/rhodochrosite-004c8254-34b1-4ed3-a96f-039b97113c48"}, {"handle": "@GeologyLife", "text": "This looks like green glass but it's actually lead crystals. Pyromorphite has that weird wet shine that catches light like nothing else. The hexagonal prisms stack up like tiny organ pipes.\n\nAlways ch", "mineral": "Pyromorphite", "tweet_id": "2034870039451713607", "posted_at": "2026-03-20T05:49:58.289828", "image_url": "https://cdn.earthwonders.com/uploads/pyromorphite-70bc3cb6-47e0-4618-94a4-20bcd4ff2b81"}, {"handle": "@GeologyLife", "text": "This tourmaline crystal shows 7 different colors in one specimen.\n\nMost minerals stick to one or two shades. But tourmaline breaks every rule - pink, green, blue, yellow all growing together as the ch", "mineral": "Tourmaline, Fluorapatite", "tweet_id": "2034773355040289114", "posted_at": "2026-03-19T23:25:46.976188", "image_url": "https://cdn.earthwonders.com/uploads/tourmaline-fluorapatite-13a2e5d0-28d6-417e-9edc-2510c70b56b9"}, {"handle": "@GeologyLife", "text": "Nothing beats that moment when you crack open a rock and find a perfect crystal staring back at you! This fluorite and barite combo reminds me why we chase specimens across the globe - every piece tel", "mineral": "Fluorite, Barite", "tweet_id": "2034545935062360103", "posted_at": "2026-03-19T08:22:14.754356", "image_url": "https://cdn.earthwonders.com/uploads/fluorite-barite-9e58b3be-d63a-4adf-9417-1ffb66a708e5"}], "next_pending": [{"handle": "@GeologyLife", "text": "This looks like stained glass from a cathedral window. It's actually fluorite that formed 280 million years ago in underground cavities.\n\nThe cubic cr", "mineral": "Fluorite", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this incredible pseudomorph today \u2014 malachite that completely replaced azurite crystal by crystal.\n\nThe green bands follow the exact shape of th", "mineral": "Malachite after Azurite", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this fluorite combo piece and it's got everything - purple cubes, white calcite, and metallic galena all in one specimen.\n\nThe way these three m", "mineral": "Fluorite with Calcite and Galena", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this tourmaline specimen today but honestly can't tell you where it's from.\n\nThat's the thing about older collections - amazing crystals with ze", "mineral": "Tourmaline", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "This tourmaline took 50 million years to grow each perfect crystal face.\n\nFound this Skardu piece still locked in its quartz matrix \u2013 exactly how it f", "mineral": "Mesmerizing Tourmaline with Quartz Matrix \u2013 A Skardu Masterpiece", "scheduled_for": ""}], "analytics": [{"tweet_id": "2034545935062360103", "handle": "@GeologyLife", "mineral": "Fluorite, Barite", "text_preview": "Nothing beats that moment when you crack open a rock and fin", "likes": 0, "retweets": 0, "replies": 0, "impressions": 5, "score": 0, "posted_at": "2026-03-19T08:22:14.754356", "scored_at": "2026-03-20T05:50:06.828292+00:00"}, {"tweet_id": "2034773355040289114", "handle": "@GeologyLife", "mineral": "Tourmaline, Fluorapatite", "text_preview": "This tourmaline crystal shows 7 different colors in one spec", "likes": 0, "retweets": 0, "replies": 0, "impressions": 3, "score": 0, "posted_at": "2026-03-19T23:25:46.976188", "scored_at": "2026-03-20T05:50:08.264562+00:00"}, {"tweet_id": "2034870039451713607", "handle": "@GeologyLife", "mineral": "Pyromorphite", "text_preview": "This looks like green glass but it's actually lead crystals.", "likes": 0, "retweets": 0, "replies": 0, "impressions": 0, "score": 0, "posted_at": "2026-03-20T05:49:58.289828", "scored_at": "2026-03-20T05:50:09.680379+00:00"}, {"tweet_id": "2034773478923280554", "handle": "@Geologic_news", "mineral": "Rhodochrosite", "text_preview": "Scientists confirmed: This rhodochrosite specimen contains 6", "likes": 0, "retweets": 0, "replies": 0, "impressions": 0, "score": 0, "posted_at": "2026-03-19T23:26:16.466485", "scored_at": "2026-03-20T05:50:11.124706+00:00"}], "db_stats": {"specimens": 94083, "wiki_pages": 229, "countries": 1755}, "budget": {"spent": 0.015, "limit": 20.0}, "errors_24h": 11, "cron_schedule": [{"job": "writer", "plist": "com.earthwonders.writer.plist"}, {"job": "poster", "plist": "com.earthwonders.poster.plist"}, {"job": "dashboard", "plist": "com.earthwonders.dashboard.plist"}, {"job": "analytics", "plist": "com.earthwonders.analytics.plist"}, {"job": "health", "plist": "com.earthwonders.health.plist"}, {"job": "dashboard-server", "plist": "com.earthwonders.dashboard-server.plist"}], "activity_log": ["[2026-03-19 23:48:42] [researcher]   Error scraping Mindat Latest: HTTP Error 403: Forbidden", "[2026-03-19 23:48:42] [researcher]     No articles found", "[2026-03-19 23:48:43] [researcher]   Scraping GIA News...", "[2026-03-19 23:49:03] [researcher]   Error scraping GIA News: The read operation timed out", "[2026-03-19 23:49:03] [researcher]     No articles found", "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved.", "[2026-03-19 23:49:10] [writer] Loaded content pool: 93,682 specimens", "[2026-03-19 23:49:10] [writer] Generating 5 posts for @GeologyLife...", "[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...", "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...", "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.", "", "They'r...", "[2026-03-19 23:49:38] [writer]   [4/5] Fluorite with Galena: Found this combo today: fluorite crystals sparkling on quart...", "[2026-03-19 23:49:47] [writer]   [5/5] Rhodochrosite: Santa Eulalia's West Camp produced some of the world's fines...", "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)", "[2026-03-19 23:49:56] [poster] Uploading image from file for Pyromorphite...", "[2026-03-19 23:49:57] [poster] Posting to @GeologyLife: Pyromorphite...", "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607", "[2026-03-19 23:50:06] [analytics] Found 4 posted tweets to collect analytics for.", "[2026-03-19 23:50:06] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)", "[2026-03-19 23:50:08] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)", "[2026-03-19 23:50:09] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-19 23:50:11] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-19 23:50:12] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4", "[2026-03-19 23:50:18] [dashboard] Dashboard data updated. Queue: 16 pending, DB: 94,083 specimens", "[2026-03-19 23:50:24] [health] Health check complete. Critical: False", "[2026-03-19 23:50:25] [health] Health report sent to Telegram.", "[2026-03-20 00:43:50] [health] Health check complete. Critical: False", "[2026-03-20 00:43:51] [health] Health report sent to Telegram."]};</script>
+<script>window.__STATIC_DATA__ = {"updated_at": "2026-03-20T00:53:12.926577", "agents": {"maya": {"status": "active", "last_action": "OpenFang running"}, "researcher": {"status": "active", "last_action": "[2026-03-19 23:49:04] [researcher] Research cycle complete. 24 new articles saved."}, "writer": {"status": "active", "last_action": "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)"}, "poster": {"status": "active", "last_action": "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607"}}, "openfang": {"running": true, "pid": "78953", "exit_code": "0"}, "accounts": ["GeologyWonders1", "Geologic_news", "GeologyLife"], "queue": {"total": 20, "pending": 16, "posted": 4}, "posts_today": {"@GeologyLife": 1}, "top_post": {"tweet_id": "2034545935062360103", "handle": "@GeologyLife", "mineral": "Fluorite, Barite", "text_preview": "Nothing beats that moment when you crack open a rock and fin", "likes": 0, "retweets": 0, "replies": 0, "impressions": 5, "score": 0, "posted_at": "2026-03-19T08:22:14.754356", "scored_at": "2026-03-20T06:52:55.561213+00:00"}, "recent_posts": [{"handle": "@Geologic_news", "text": "Scientists confirmed: This rhodochrosite specimen contains 61.7% manganese carbonate by weight.\n\nThat's what creates the signature rose-red color. Pure chemistry turned into crystal art.\n\nThe Greek na", "mineral": "Rhodochrosite", "tweet_id": "2034773478923280554", "posted_at": "2026-03-19T23:26:16.466485", "image_url": "https://cdn.earthwonders.com/uploads/rhodochrosite-004c8254-34b1-4ed3-a96f-039b97113c48"}, {"handle": "@GeologyLife", "text": "This looks like green glass but it's actually lead crystals. Pyromorphite has that weird wet shine that catches light like nothing else. The hexagonal prisms stack up like tiny organ pipes.\n\nAlways ch", "mineral": "Pyromorphite", "tweet_id": "2034870039451713607", "posted_at": "2026-03-20T05:49:58.289828", "image_url": "https://cdn.earthwonders.com/uploads/pyromorphite-70bc3cb6-47e0-4618-94a4-20bcd4ff2b81"}, {"handle": "@GeologyLife", "text": "This tourmaline crystal shows 7 different colors in one specimen.\n\nMost minerals stick to one or two shades. But tourmaline breaks every rule - pink, green, blue, yellow all growing together as the ch", "mineral": "Tourmaline, Fluorapatite", "tweet_id": "2034773355040289114", "posted_at": "2026-03-19T23:25:46.976188", "image_url": "https://cdn.earthwonders.com/uploads/tourmaline-fluorapatite-13a2e5d0-28d6-417e-9edc-2510c70b56b9"}, {"handle": "@GeologyLife", "text": "Nothing beats that moment when you crack open a rock and find a perfect crystal staring back at you! This fluorite and barite combo reminds me why we chase specimens across the globe - every piece tel", "mineral": "Fluorite, Barite", "tweet_id": "2034545935062360103", "posted_at": "2026-03-19T08:22:14.754356", "image_url": "https://cdn.earthwonders.com/uploads/fluorite-barite-9e58b3be-d63a-4adf-9417-1ffb66a708e5"}], "next_pending": [{"handle": "@GeologyLife", "text": "This looks like stained glass from a cathedral window. It's actually fluorite that formed 280 million years ago in underground cavities.\n\nThe cubic cr", "mineral": "Fluorite", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this incredible pseudomorph today \u2014 malachite that completely replaced azurite crystal by crystal.\n\nThe green bands follow the exact shape of th", "mineral": "Malachite after Azurite", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this fluorite combo piece and it's got everything - purple cubes, white calcite, and metallic galena all in one specimen.\n\nThe way these three m", "mineral": "Fluorite with Calcite and Galena", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "Found this tourmaline specimen today but honestly can't tell you where it's from.\n\nThat's the thing about older collections - amazing crystals with ze", "mineral": "Tourmaline", "scheduled_for": ""}, {"handle": "@GeologyLife", "text": "This tourmaline took 50 million years to grow each perfect crystal face.\n\nFound this Skardu piece still locked in its quartz matrix \u2013 exactly how it f", "mineral": "Mesmerizing Tourmaline with Quartz Matrix \u2013 A Skardu Masterpiece", "scheduled_for": ""}], "analytics": [{"tweet_id": "2034545935062360103", "handle": "@GeologyLife", "mineral": "Fluorite, Barite", "text_preview": "Nothing beats that moment when you crack open a rock and fin", "likes": 0, "retweets": 0, "replies": 0, "impressions": 5, "score": 0, "posted_at": "2026-03-19T08:22:14.754356", "scored_at": "2026-03-20T06:52:55.561213+00:00"}, {"tweet_id": "2034773355040289114", "handle": "@GeologyLife", "mineral": "Tourmaline, Fluorapatite", "text_preview": "This tourmaline crystal shows 7 different colors in one spec", "likes": 0, "retweets": 0, "replies": 0, "impressions": 3, "score": 0, "posted_at": "2026-03-19T23:25:46.976188", "scored_at": "2026-03-20T06:52:57.005719+00:00"}, {"tweet_id": "2034870039451713607", "handle": "@GeologyLife", "mineral": "Pyromorphite", "text_preview": "This looks like green glass but it's actually lead crystals.", "likes": 0, "retweets": 0, "replies": 0, "impressions": 0, "score": 0, "posted_at": "2026-03-20T05:49:58.289828", "scored_at": "2026-03-20T06:52:58.444917+00:00"}, {"tweet_id": "2034773478923280554", "handle": "@Geologic_news", "mineral": "Rhodochrosite", "text_preview": "Scientists confirmed: This rhodochrosite specimen contains 6", "likes": 0, "retweets": 0, "replies": 0, "impressions": 0, "score": 0, "posted_at": "2026-03-19T23:26:16.466485", "scored_at": "2026-03-20T06:52:59.872068+00:00"}], "db_stats": {"specimens": 94083, "wiki_pages": 229, "countries": 1755}, "budget": {"spent": 0.015, "limit": 20.0}, "errors_24h": 5, "cron_schedule": [{"job": "writer", "plist": "com.earthwonders.writer.plist"}, {"job": "poster", "plist": "com.earthwonders.poster.plist"}, {"job": "dashboard", "plist": "com.earthwonders.dashboard.plist"}, {"job": "analytics", "plist": "com.earthwonders.analytics.plist"}, {"job": "health", "plist": "com.earthwonders.health.plist"}, {"job": "dashboard-server", "plist": "com.earthwonders.dashboard-server.plist"}], "activity_log": ["[2026-03-19 23:49:18] [writer]   [1/5] Amethyst Quartz: Found this scepter today with a phantom crystal inside a cry...", "[2026-03-19 23:49:25] [writer]   [2/5] Fluorite: Found this today: looks like green ice cubes but it's actual...", "[2026-03-19 23:49:31] [writer]   [3/5] Smithsonite: These look like wet glass beads fresh from the rain.", "", "They'r...", "[2026-03-19 23:49:38] [writer]   [4/5] Fluorite with Galena: Found this combo today: fluorite crystals sparkling on quart...", "[2026-03-19 23:49:47] [writer]   [5/5] Rhodochrosite: Santa Eulalia's West Camp produced some of the world's fines...", "[2026-03-19 23:49:48] [writer] Writer complete. 5 posts added to logs/posts_queue.json. Queue total: 20 (17 pending)", "[2026-03-19 23:49:56] [poster] Uploading image from file for Pyromorphite...", "[2026-03-19 23:49:57] [poster] Posting to @GeologyLife: Pyromorphite...", "[2026-03-19 23:49:58] [poster]   Posted successfully. Tweet ID: 2034870039451713607", "[2026-03-19 23:50:06] [analytics] Found 4 posted tweets to collect analytics for.", "[2026-03-19 23:50:06] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)", "[2026-03-19 23:50:08] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)", "[2026-03-19 23:50:09] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-19 23:50:11] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-19 23:50:12] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4", "[2026-03-19 23:50:18] [dashboard] Dashboard data updated. Queue: 16 pending, DB: 94,083 specimens", "[2026-03-19 23:50:24] [health] Health check complete. Critical: False", "[2026-03-19 23:50:25] [health] Health report sent to Telegram.", "[2026-03-20 00:43:50] [health] Health check complete. Critical: False", "[2026-03-20 00:43:51] [health] Health report sent to Telegram.", "[2026-03-20 00:49:51] [health] Health check complete. Critical: False", "[2026-03-20 00:49:52] [health] Health report sent to Telegram.", "[2026-03-20 00:52:55] [analytics] Found 4 posted tweets to collect analytics for.", "[2026-03-20 00:52:55] [analytics]   @GeologyLife | Fluorite, Barite: L=0 RT=0 R=0 I=5 (score=0)", "[2026-03-20 00:52:57] [analytics]   @GeologyLife | Tourmaline, Fluorapatite: L=0 RT=0 R=0 I=3 (score=0)", "[2026-03-20 00:52:58] [analytics]   @GeologyLife | Pyromorphite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-20 00:52:59] [analytics]   @Geologic_news | Rhodochrosite: L=0 RT=0 R=0 I=0 (score=0)", "[2026-03-20 00:53:00] [analytics] Analytics complete. Collected: 4, Errors: 0, Total tracked: 4"]};</script>
 </head>
 <body>
 
@@ -1164,17 +1245,38 @@ body {
   // DATA FETCH
   // ==========================================
   async function fetchData() {
-    try {
-      const resp = await fetch('/api/data', { cache: 'no-store' });
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
-      const data = await resp.json();
-      lastData = data;
+    // Try /api/data first (Flask server), then data.json (static), then __STATIC_DATA__
+    const urls = ['/api/data', 'data.json'];
+    let success = false;
+    for (const url of urls) {
+      try {
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) continue;
+        const ct = resp.headers.get('content-type') || '';
+        if (!ct.includes('json')) continue;
+        const data = await resp.json();
+        lastData = data;
+        lastFetchTime = Date.now();
+        isOffline = false;
+        document.getElementById('offline-banner').classList.remove('visible');
+        renderAll(data);
+        success = true;
+        break;
+      } catch (e) {
+        continue;
+      }
+    }
+    // Try embedded static data
+    if (!success && window.__STATIC_DATA__) {
+      lastData = window.__STATIC_DATA__;
       lastFetchTime = Date.now();
-      isOffline = false;
-      document.getElementById('offline-banner').classList.remove('visible');
-      renderAll(data);
-    } catch (e) {
-      console.warn('Fetch failed:', e);
+      isOffline = true;
+      document.getElementById('offline-banner').textContent = 'Static snapshot — live data unavailable';
+      document.getElementById('offline-banner').classList.add('visible');
+      renderAll(window.__STATIC_DATA__);
+      success = true;
+    }
+    if (!success) {
       isOffline = true;
       document.getElementById('offline-banner').classList.add('visible');
       document.getElementById('sync-indicator').textContent = '\u26A0\uFE0F Offline';
